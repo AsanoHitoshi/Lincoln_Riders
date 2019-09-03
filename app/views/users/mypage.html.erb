@@ -1,0 +1,4 @@
+<%current_user.posts.each do |post|%>
+	<%= post.text %>
+	<%= attachment_image_tag post, :image %>
+<%end%>

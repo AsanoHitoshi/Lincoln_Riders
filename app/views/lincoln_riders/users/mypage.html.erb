@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="col-xs-3">
+		<div class="sidebar">
+			<div class="newpost">
+				<h3>New Post</h3>
+				<%= form_with(model: @new_post,url: lincoln_riders_posts_path) do |f|%>
+					<%=f.label :内容%>
+					<%= f.text_area :text %>
+					<p></p>
+					<%= f.submit "Create Book" ,class:"btn btn-default"%>
+				<%end%>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-9">
+		<% current_user.posts.each do |post|%>
+			<%= post.text %>
+			<%= attachment_image_tag post, :image %>
+		<%end%>
+	</div>
+</div>

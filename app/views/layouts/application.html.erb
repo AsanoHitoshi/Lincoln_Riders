@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>LincolnRiders</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    <head>
+      <title>LincolnRiders</title>
+      <%= csrf_meta_tags %>
+      <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    </head>
 
-  <body>
-    <%= yield %>
-  </body>
+    <body>
+      <header>
+        <%= link_to lincoln_riders_root_path do%>top<%end%>
+        <%= link_to lincoln_riders_about_path do%>about<%end%>
+        <%= link_to new_user_registration_path do%>signup<%end%>
+        <%= link_to new_user_session_path do%>login<%end%>
+        <%= link_to destroy_user_session_path do%>logout<%end%>
+      </header>
+        <%= yield %>
+      <footer>
+        <div class="footer-text-field">
+          <p><font face="fantasy">©︎　Lincoln Riders</font></p>
+        </div>
+      </footer>
+    </body>
 </html>

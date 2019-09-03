@@ -1,24 +1,38 @@
-# README
+Lincoln Riders
+====
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Overview
 
-Things you may want to cover:
+## Description
+SNS of the riders, by the riders, for the riders
+## Demo
+バイクの投稿が複数あるマイページ
+マップ上に写真が表示されている画像
 
-* Ruby version
+## VS.
+競合との差異
 
-* System dependencies
+## Usage
+サーバサイド
+	言語：Ruby
+	フレームワーク：Ruby On Rails
+	Gem：devise
+		 cocoon
+	外部ライブラリ：slick
+フロントエンド
+	CSSフレームワーク：BootStrap
+	JavaScriptライブラリ：JQuery
+	JavaScriptフレームワーク：AngularJS
+テスト
+	Rspec
+本番サーバ環境
+	AWS
+データベース
+	MySQL
+WEBサーバ
+	Apache
+##URL
+[GitHub]https://github.com/AsanoHitoshi/Lincoln_Riders
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Author
+[AsanoHitoshi](https://github.com/AsanoHitoshi)
