@@ -1,0 +1,9 @@
+<div class="post">
+	<h3>Edit Post</h3>
+	<%= form_with(model: @post,url: lincoln_riders_user_post_path(@post)) do |f|%>
+		<%=f.label :内容%>
+		<%= f.text_area :text %>
+		<p></p>
+		<%= f.submit "Update Post" ,class:"btn btn-default"%>
+	<%end%>
+</div>

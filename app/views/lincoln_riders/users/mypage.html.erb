@@ -3,7 +3,7 @@
 		<div class="sidebar">
 			<div class="newpost">
 				<h3>New Post</h3>
-				<%= form_with(model: @new_post,url: lincoln_riders_posts_path) do |f|%>
+				<%= form_with(model: @new_post,url: lincoln_riders_user_posts_path(current_user)) do |f|%>
 					<%=f.label :内容%>
 					<%= f.text_area :text %>
 					<p></p>
@@ -14,7 +14,9 @@
 	</div>
 	<div class="col-xs-9">
 		<% current_user.posts.each do |post|%>
-			<%= post.text %>
+        	<%= link_to lincoln_riders_user_post_path(post.user_id,post.id) do%>
+        		<%= post.text %>
+        	<%end%>
 			<%= attachment_image_tag post, :image %>
 		<%end%>
 	</div>
