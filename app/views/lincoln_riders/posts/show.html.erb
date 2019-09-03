@@ -1,0 +1,6 @@
+<%=@user.email%>
+
+<%=@post.text%>
+
+<%= link_to edit_lincoln_riders_user_post_path(@post) do%>edit<%end%>
+<%= link_to lincoln_riders_user_post_path(@post), method: :delete do%>delete<%end%>

@@ -10,4 +10,8 @@ class LincolnRiders::UsersController < ApplicationController
 		@new_post = Post.new
 	end
 
+	def show
+		@user = User.find_by(params[:id])
+		@new_post = Post.new
+	end
 end
