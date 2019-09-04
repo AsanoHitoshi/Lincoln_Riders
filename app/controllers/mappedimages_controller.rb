@@ -1,2 +1,0 @@
-class MappedimagesController < ApplicationController
-end
