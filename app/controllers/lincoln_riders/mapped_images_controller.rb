@@ -19,13 +19,13 @@ class LincolnRiders::MappedImagesController < ApplicationController
 	end
 
 	def show
-		@mapped_image = MappedImage.find_by(params[:id])
-		@user = User.find_by(params[:user_id])
+		@mapped_image = MappedImage.find_by(id: params[:id])
+		@user = User.find_by(id: params[:user_id])
 	end
 
 	private
 
 		def mapped_image_params
-	      params.require(:mapped_image).permit(:user_id,:text, :image, :position_lat, :position_lng,)
+	      params.require(:mapped_image).permit(:user_id, :text, :image, :position_lat, :position_lng,)
 		end
 end

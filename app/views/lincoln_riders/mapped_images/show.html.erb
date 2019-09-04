@@ -1,4 +1,17 @@
-<input type="text" value="#{@mapped_image.position_lat}" id="mapped_image">
+<%= hidden_field_tag "mapped_image_position","#{@mapped_image.position_lat},#{@mapped_image.position_lng}", {id: "mapped_image_position"} %>
+
+<div class="mapped_image_content">
+	<div>
+		<%=@mapped_image.user%>
+	</div>
+
+	<div class="mapped_image">
+		<%= attachment_image_tag @mapped_image, :image %>
+	</div>
+	<div class="mapped_image_text">
+		<%= @mapped_image.text %>
+	</div>
+</div>
 
 <p>住所や駅名、目印などで検索できます。</p>
 <form onsubmit="return false;">
@@ -13,7 +26,7 @@
 
 <script>
 var getMap = (function() {
-  function codeAddress(address) {
+  function codeAddress(mapped_image_position,address) {
     // google.maps.Geocoder()コンストラクタのインスタンスを生成
     var geocoder = new google.maps.Geocoder();
 
@@ -30,7 +43,7 @@ var getMap = (function() {
     var marker;
 
     // geocoder.geocode()メソッドを実行
-    geocoder.geocode( { 'address': address}, function(results, status) {
+    geocoder.geocode( { 'address': mapped_image_position}, function(results, status) {
 
       // ジオコーディングが成功した場合
       if (status == google.maps.GeocoderStatus.OK) {
@@ -43,6 +56,20 @@ var getMap = (function() {
           map: map,
           position: results[0].geometry.location
         });
+      // ジオコーディングが成功しなかった場合
+      } else {
+        console.log('Geocode was not successful for the following reason: ' + status);
+      }
+
+    });
+    geocoder.geocode( { 'address': address}, function(results, status) {
+
+      // ジオコーディングが成功した場合
+      if (status == google.maps.GeocoderStatus.OK) {
+
+        // 変換した緯度・経度情報を地図の中心に表示
+        map.setCenter(results[0].geometry.location);
+
       // ジオコーディングが成功しなかった場合
       } else {
         console.log('Geocode was not successful for the following reason: ' + status);
@@ -71,17 +98,19 @@ var getMap = (function() {
       // ボタンが押された時の処理
       button.onclick = function() {
         // フォームに入力された住所情報を取得
+        var mapped_image_position = document.getElementById("mapped_image_position").value;
         var address = document.getElementById("address").value;
         // 取得した住所を引数に指定してcodeAddress()関数を実行
-        codeAddress(address);
+        codeAddress(mapped_image_position,address);
       }
 
       //読み込まれたときに地図を表示
       window.onload = function(){
         // フォームに入力された住所情報を取得
+        var mapped_image_position = document.getElementById("mapped_image_position").value;
         var address = document.getElementById("address").value;
         // 取得した住所を引数に指定してcodeAddress()関数を実行
-        codeAddress(address);
+        codeAddress(mapped_image_position,address);
       }
     }
 
