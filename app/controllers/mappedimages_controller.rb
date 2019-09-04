@@ -1,0 +1,2 @@
+class MappedimagesController < ApplicationController
+end

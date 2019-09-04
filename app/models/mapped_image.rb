@@ -1,0 +1,2 @@
+class MappedImage < ApplicationRecord
+end

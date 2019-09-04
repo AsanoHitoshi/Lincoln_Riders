@@ -3,21 +3,21 @@
 		<div class="sidebar">
 			<div class="newpost">
 				<h3>New Post</h3>
-				<%= form_with(model: @new_post,url: lincoln_riders_user_posts_path(current_user)) do |f|%>
-					<%=f.label :内容%>
+				<%= form_with(model: @new_post,url: lincoln_riders_user_posts_path(current_user)) do |f| %>
+					<%= f.label :内容%>
 					<%= f.text_area :text %>
 					<p></p>
-					<%= f.submit "Create Book" ,class:"btn btn-default"%>
+					<%= f.submit "Create Book" ,class:"btn btn-default" %>
 				<%end%>
 			</div>
 		</div>
 	</div>
 	<div class="col-xs-9">
-		<% current_user.posts.each do |post|%>
-        	<%= link_to lincoln_riders_user_post_path(post.user_id,post.id) do%>
+		<% current_user.posts.each do |post| %>
+        	<%= link_to lincoln_riders_user_post_path(post.user_id,post.id) do %>
         		<%= post.text %>
-        	<%end%>
+        	<% end %>
 			<%= attachment_image_tag post, :image %>
-		<%end%>
+		<% end %>
 	</div>
 </div>
