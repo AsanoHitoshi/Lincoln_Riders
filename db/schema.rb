@@ -25,6 +25,11 @@ ActiveRecord::Schema.define(version: 2019_09_04_052115) do
   end
 
   create_table "mapped_images", force: :cascade do |t|
+    t.text "text", null: false
+    t.text "image_id"
+    t.string "position_lat"
+    t.string "position_lng"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
