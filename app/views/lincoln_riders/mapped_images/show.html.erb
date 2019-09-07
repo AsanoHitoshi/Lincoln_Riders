@@ -4,6 +4,10 @@
 	<div>
 		<%=@mapped_image.user%>
 	</div>
+  <div class="links">
+    <%= link_to lincoln_riders_user_mapped_image_path(@mapped_image.user_id,@mapped_image.id), method: :delete do %>delete<%end%>
+    <%= link_to edit_lincoln_riders_user_mapped_image_path(@mapped_image.user_id,@mapped_image.id) do %>edit<%end%>
+  </div>
 
 	<div class="mapped_image">
 		<%= attachment_image_tag @mapped_image, :image %>
@@ -22,7 +26,7 @@
 <div class="map_box01"><div id="map-canvas" style="width: 500px;height: 350px;"></div></div>
 
 <!-- APIを取得 -->
-<script type="text/javascript" src="//maps.google.com/maps/api/js?key=AIzaSyAHbL58lyJxPzDs6YpnRR1oUgo4M8KjRxU"></script>
+<script type="text/javascript" src="//maps.google.com/maps/api/js?key=<%=ENV['KEY']%>"></script>
 
 <script>
 var getMap = (function() {

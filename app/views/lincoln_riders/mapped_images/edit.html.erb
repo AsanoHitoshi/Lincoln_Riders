@@ -3,15 +3,14 @@
     <%= form.text_field :text %><br>
 
     <%= form.label :image %><br>
-    <%= form.attachment_field :image %><br>
-    <%= form.text_field :position_lat %>
-    <%= form.text_field :position_lng %>
+    <%= form.text_field :position_lat ,{id: "mapped_image_position_lat"}%>
+    <%= form.text_field :position_lng ,{id: "mapped_image_position_lng"}%>
 
     <%= form.submit  :class=>"btn btn-primary" %>
 <% end %>
   <p>住所や駅名、目印などで検索できます。</p>
   <form onsubmit="return false;">
-    <input type="text" value="大阪" id="address">
+    <input type="text" value="" id="address">
     <button type="button" value="検索" id="map_button">検索</button>
   </form>
   <!-- 地図を表示させる要素 -->
@@ -23,7 +22,7 @@
 
 <script>
 var getMap = (function() {
-  function codeAddress(address) {
+  function codeAddress(mapped_image_position,address) {
     // google.maps.Geocoder()コンストラクタのインスタンスを生成
     var geocoder = new google.maps.Geocoder();
 
@@ -39,29 +38,19 @@ var getMap = (function() {
     //マーカー変数用意
     var marker;
 
-    // geocoder.geocode()メソッドを実行
-    geocoder.geocode( { 'address': address}, function(results, status) {
 
-      // ジオコーディングが成功した場合
-      if (status == google.maps.GeocoderStatus.OK) {
 
         // 変換した緯度・経度情報を地図の中心に表示
-        map.setCenter(results[0].geometry.location);
+        map.setCenter(mapped_image_position);
 
         // マーカー設定
         marker = new google.maps.Marker({
           map: map,
-          position: results[0].geometry.location
+          position: mapped_image_position
         });
-        document.getElementById('mapped_image_position_lat').value=results[0].geometry.location.lat();
-        document.getElementById('mapped_image_position_lng').value=results[0].geometry.location.lng();
+        document.getElementById('mapped_image_position_lat').value= marker.position.lat();
+        document.getElementById('mapped_image_position_lng').value= marker.position.lng();
 
-      // ジオコーディングが成功しなかった場合
-      } else {
-        console.log('Geocode was not successful for the following reason: ' + status);
-      }
-
-    });
 
     // マップをクリックで位置変更
     map.addListener('click', function(e) {
@@ -104,10 +93,18 @@ var getMap = (function() {
 
       //読み込まれたときに地図を表示
       window.onload = function(){
+
+		var lat_string = document.getElementById("mapped_image_position_lat").value;
+		var lng_string = document.getElementById("mapped_image_position_lng").value;
+
+		var mapped_image_position = {
+			lat: Number(lat_string), // 緯度
+			lng: Number(lng_string) // 経度
+        };
         // フォームに入力された住所情報を取得
         var address = document.getElementById("address").value;
         // 取得した住所を引数に指定してcodeAddress()関数を実行
-        codeAddress(address);
+        codeAddress(mapped_image_position,address);
       }
     }
 

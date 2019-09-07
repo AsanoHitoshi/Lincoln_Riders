@@ -1,7 +1,7 @@
 class LincolnRiders::MappedImagesController < ApplicationController
 
 	def index
-
+		@mapped_images = MappedImage.all
 	end
 
 	def new
@@ -23,6 +23,18 @@ class LincolnRiders::MappedImagesController < ApplicationController
 		@user = User.find_by(id: params[:user_id])
 	end
 
+	def edit
+		@mapped_image = MappedImage.find_by(id: params[:id])
+	end
+
+	def destroy
+		mapped_image = MappedImage.find_by(id: params[:id])
+		if mapped_image.destroy
+			redirect_to lincoln_riders_user_mypage_path
+		else
+			redirect_to new_lincoln_riders_user_mapped_image_path(mapped_image)
+		end
+	end
 	private
 
 		def mapped_image_params

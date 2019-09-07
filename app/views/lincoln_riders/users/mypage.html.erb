@@ -13,11 +13,25 @@
 		</div>
 	</div>
 	<div class="col-xs-9">
-		<% current_user.posts.each do |post| %>
-        	<%= link_to lincoln_riders_user_post_path(post.user_id,post.id) do %>
-        		<%= post.text %>
-        	<% end %>
-			<%= attachment_image_tag post, :image %>
-		<% end %>
+		<div class="posts_index">
+			<% current_user.posts.each do |post| %>
+			<div class="post">
+		        	<%= link_to lincoln_riders_user_post_path(post.user_id,post.id) do %>
+		        		<%= post.text %>
+		        	<% end %>
+					<%= attachment_image_tag post, :image %>
+				</div>
+			<% end %>
+		</div>
+		<div class="mapped_images_index">
+			<% current_user.mapped_images.each do |mapped_image| %>
+				<div class="mapped_image">
+		        	<%= link_to lincoln_riders_user_mapped_image_path(mapped_image.user_id,mapped_image.id) do %>
+		        		<%= mapped_image.text %>
+		        	<% end %>
+					<%= attachment_image_tag mapped_image, :image %>
+				</div>
+			<% end %>
+		</div>
 	</div>
 </div>
