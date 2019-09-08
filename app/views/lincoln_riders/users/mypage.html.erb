@@ -1,9 +1,13 @@
 <div class="container">
 	<div class="col-xs-3">
 		<div class="sidebar">
+			<div>
+		        	<%= link_to following_users_index_lincoln_riders_user_path(current_user) do %>follow<%end%>
+		        	<%= link_to followed_users_index_lincoln_riders_user_path(current_user) do %>follower<%end%>
+			</div>
 			<div class="newpost">
 				<h3>New Post</h3>
-				<%= form_with(model: @new_post,url: lincoln_riders_user_posts_path(current_user)) do |f| %>
+				<%= form_with(model: @new_post,url: lincoln_riders_user_posts_path(current_user.id)) do |f| %>
 					<%= f.label :内容%>
 					<%= f.text_area :text %>
 					<p></p>

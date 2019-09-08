@@ -38,7 +38,7 @@ class LincolnRiders::MappedImagesController < ApplicationController
 
 	def get_window_content
 		@showing_mapped_image = MappedImage.find_by(id: params[:showing_mapped_image_id])
-		@showing_mapped_image.image_id = Refile.attachment_url(@showing_mapped_image, :image)
+		@showing_mapped_image.image_id = Refile.attachment_url(@showing_mapped_image, :image)	
 		render :json => @showing_mapped_image
 		# render "get_window_content.js.erb"
 	end

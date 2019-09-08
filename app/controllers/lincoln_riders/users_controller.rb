@@ -14,4 +14,12 @@ class LincolnRiders::UsersController < ApplicationController
 		@user = User.find_by(params[:id])
 		@new_post = Post.new
 	end
+
+	def following_users_index
+		@user = User.find_by(id: params[:id])
+	end
+
+	def followed_users_index
+		@user = User.find_by(id: params[:id])
+	end
 end

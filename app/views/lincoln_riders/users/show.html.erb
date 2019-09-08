@@ -13,6 +13,11 @@
 		</div>
 	</div>
 	<div class="col-xs-9">
+			<% if @user.followed_by?(current_user) %>
+				<p><%=link_to "フォローやめる", lincoln_riders_user_follow_relationships_path(@user.id), method: :delete %></p>
+			<% else %>
+				<p><%=link_to "フォローする", lincoln_riders_user_follow_relationships_path(@user.id), method: :post %></p>
+			<% end %>
 		<div class="posts_index">
 			<% @user.posts.each do |post|%>
 				<div class="post">
