@@ -1,0 +1,130 @@
+<%= hidden_field_tag "mapped_image_position","#{@mapped_image.position_lat},#{@mapped_image.position_lng}", {id: "mapped_image_position"} %>
+
+<div class="mapped_image_content">
+	<div>
+		<%=@mapped_image.user%>
+	</div>
+  <div class="links">
+    <%= link_to lincoln_riders_user_mapped_image_path(@mapped_image.user_id,@mapped_image.id), method: :delete do %>delete<%end%>
+    <%= link_to edit_lincoln_riders_user_mapped_image_path(@mapped_image.user_id,@mapped_image.id) do %>edit<%end%>
+  </div>
+
+	<div class="mapped_image">
+		<%= attachment_image_tag @mapped_image, :image %>
+	</div>
+	<div class="mapped_image_text">
+		<%= @mapped_image.text %>
+	</div>
+</div>
+
+<p>住所や駅名、目印などで検索できます。</p>
+<form onsubmit="return false;">
+  <input type="text" id="address">
+  <button type="button" value="検索" id="map_button">検索</button>
+</form>
+<!-- 地図を表示させる要素 -->
+<div class="map_box01"><div id="map-canvas" style="width: 500px;height: 350px;"></div></div>
+
+<!-- APIを取得 -->
+<script type="text/javascript" src="//maps.google.com/maps/api/js?key=<%=ENV['KEY']%>"></script>
+
+<script>
+var getMap = (function() {
+  function codeAddress(mapped_image_position,address) {
+    // google.maps.Geocoder()コンストラクタのインスタンスを生成
+    var geocoder = new google.maps.Geocoder();
+
+    // 地図表示に関するオプション
+    var mapOptions = {
+      zoom: 16,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    // 地図を表示させるインスタンスを生成
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+    //マーカー変数用意
+    var marker;
+
+    // geocoder.geocode()メソッドを実行
+    geocoder.geocode( { 'address': mapped_image_position}, function(results, status) {
+
+      // ジオコーディングが成功した場合
+      if (status == google.maps.GeocoderStatus.OK) {
+
+        // 変換した緯度・経度情報を地図の中心に表示
+        map.setCenter(results[0].geometry.location);
+
+        // マーカー設定
+        marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+        });
+      // ジオコーディングが成功しなかった場合
+      } else {
+        console.log('Geocode was not successful for the following reason: ' + status);
+      }
+
+    });
+    geocoder.geocode( { 'address': address}, function(results, status) {
+
+      // ジオコーディングが成功した場合
+      if (status == google.maps.GeocoderStatus.OK) {
+
+        // 変換した緯度・経度情報を地図の中心に表示
+        map.setCenter(results[0].geometry.location);
+
+      // ジオコーディングが成功しなかった場合
+      } else {
+        console.log('Geocode was not successful for the following reason: ' + status);
+      }
+
+    });
+
+    // マップをクリックで位置変更
+    map.addListener('click', function(e) {
+      getClickLatLng(e.latLng, map);
+    });
+    function getClickLatLng(lat_lng, map) {
+
+      // 座標の中心をずらす
+      map.panTo(lat_lng);
+    }
+
+  }
+
+  //inputのvalueで検索して地図を表示
+  return {
+    getAddress: function() {
+      // ボタンに指定したid要素を取得
+      var button = document.getElementById("map_button");
+
+      // ボタンが押された時の処理
+      button.onclick = function() {
+        // フォームに入力された住所情報を取得
+        var mapped_image_position = document.getElementById("mapped_image_position").value;
+        var address = document.getElementById("address").value;
+        // 取得した住所を引数に指定してcodeAddress()関数を実行
+        codeAddress(mapped_image_position,address);
+      }
+
+      //読み込まれたときに地図を表示
+      window.onload = function(){
+        // フォームに入力された住所情報を取得
+        var mapped_image_position = document.getElementById("mapped_image_position").value;
+        var address = document.getElementById("address").value;
+        // 取得した住所を引数に指定してcodeAddress()関数を実行
+        codeAddress(mapped_image_position,address);
+      }
+    }
+
+  };
+
+})();
+
+
+
+getMap.getAddress();
+
+
+</script>
