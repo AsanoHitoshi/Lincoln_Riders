@@ -15,7 +15,7 @@
         <%= link_to lincoln_riders_about_path do%>about<%end%>
         <%= link_to new_user_registration_path do%>signup<%end%>
         <%= link_to new_user_session_path do%>login<%end%>
-        <%= link_to destroy_user_session_path do%>logout<%end%>
+        <%= link_to destroy_user_session_path, method: :delete do%>logout<%end%>
       </header>
         <%= yield %>
       <footer>
