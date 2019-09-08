@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 		get 'homes/about' => 'homes#about', as: 'about'
 		root 'homes#top'
 		get 'mapped_images' => 'mapped_images#index', as: 'mapped_images'
+		get 'mapped_images/get_window_content' => 'mapped_images#get_window_content'
 		resources :users,only: [:show,:edit,:update] do
   			resources :posts, only: [:create,:show,:edit,:destroy,:update]
 			resources :mapped_images,only: [:create,:show,:edit,:update,:destroy,:new]
