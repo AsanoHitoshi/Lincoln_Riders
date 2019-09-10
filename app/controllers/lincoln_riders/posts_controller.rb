@@ -4,7 +4,7 @@ class LincolnRiders::PostsController < ApplicationController
 		@post = Post.new(post_params)
 		@post.user_id = current_user.id
 		if @post.save
-			lincoln_riders_user_post_path(@post.user_id,@post.id)
+			redirect_to lincoln_riders_user_post_path(@post.user_id,@post.id)
 		else
 			redirect_to new_user_session_path
 		end
@@ -34,6 +34,7 @@ class LincolnRiders::PostsController < ApplicationController
 		else
 		end
 	end
+
 	private
 	def post_params
       params.require(:post).permit(:text, :image)

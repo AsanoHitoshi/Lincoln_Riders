@@ -5,22 +5,44 @@
       <%= csrf_meta_tags %>
       <%= csp_meta_tag %>
 
+      <script src="https://kit.fontawesome.com/6b90a1f084.js"></script>
       <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+      <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+      <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+      <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+      <script type="text/javascript" src="//maps.google.com/maps/api/js?key=<%=ENV['KEY']%>"></script>
     </head>
 
     <body>
       <header>
-        <%= link_to lincoln_riders_root_path do%>top<%end%>
-        <%= link_to lincoln_riders_about_path do%>about<%end%>
-        <%= link_to new_user_registration_path do%>signup<%end%>
-        <%= link_to new_user_session_path do%>login<%end%>
-        <%= link_to destroy_user_session_path, method: :delete do%>logout<%end%>
+        <nav>
+          <div class="nav_left">
+            <h1 class="header_title">Lincoln Riders</h1>
+          </div>
+          <div class="nav_right">
+            <ul>
+              <%if user_signed_in?%>
+                <li class="nav_item"><%= link_to destroy_user_session_path, method: :delete do %>logout<% end %></li>
+                <li class="nav_item"><%= link_to lincoln_riders_about_path do%>about<%end%></li>
+                <li class="nav_item"><%= link_to lincoln_riders_user_mypage_posts_path do%><%=current_user.name%><%end%></li>
+                <li class="nav_item"><%= link_to lincoln_riders_root_path do%>top<%end%></li>
+              <%else%>
+                <li class="nav_item"><%= link_to new_user_session_path do%>login<%end%></li>
+                <li class="nav_item"><%= link_to new_user_registration_path do%>signup<%end%></li>
+                <li class="nav_item"><%= link_to lincoln_riders_about_path do%>about<%end%></li>
+                <li class="nav_item"><%= link_to lincoln_riders_root_path do%>top<%end%></li>
+              <%end%>
+            </ul>
+          </div>
+      </nav>
       </header>
+      <div class="main">
         <%= yield %>
+      </div>
       <footer>
         <div class="footer-text-field">
-          <p><font face="fantasy">©︎　Lincoln Riders</font></p>
+          <p class="footer_copyright">©︎　Lincoln Riders</p>
         </div>
       </footer>
     </body>

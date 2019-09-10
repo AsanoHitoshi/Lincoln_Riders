@@ -1,0 +1,55 @@
+<div class="background clearfix">
+	<%= render 'layouts/sidebar',new_post: @new_post %>
+	<div class="bar">
+		<%= link_to lincoln_riders_user_mypage_posts_path do%>
+			<div class="bar_link">
+				<i class="fas fa-motorcycle bar_icon"></i>
+			</div>
+		<%end%>
+		<%= link_to lincoln_riders_user_path(@user) do%>
+			<dvi class="bar_link">
+				<i class="fas fa-heart bar_icon"></i>
+			</dvi>
+		<%end%>
+	</div>
+	<div class="content clearfix">
+
+		<div class="posts_index">
+			<h3>Post</h3>
+
+			<div class="posts">
+				<% @posts.each do |post| %>
+					<div class="post_field">
+						<div class="post_title clearfix">
+							<%= link_to lincoln_riders_user_path(post.user) do%>
+								<div class="post_user">
+									<%= post.user.name %>
+								</div>
+							<%end%>
+							<div class="post_date">
+								<%=post.created_at.strftime('%Y/%m/%d')%>
+							</div>
+						</div>
+						<%= link_to lincoln_riders_user_post_path(post.user_id,post.id) do %>
+							<div class="post_content">
+								<div class="post_text">
+									<%= post.text %>
+								</div>
+								<div class="post_images">
+									<%= attachment_image_tag post, :image , class: "post_image"%>
+								</div>
+							</div>
+						<% end %>
+					</div>
+				<% end %>
+				<div class="paginate">
+					<%= paginate @posts %>
+				</div>
+			</div>
+
+		</div>
+
+
+	</div>
+
+</div>

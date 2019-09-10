@@ -1,0 +1,39 @@
+<div class="background clearfix">
+	<%= render 'layouts/sidebar',new_post: @new_post %>
+	<div class="bar">
+		<%= link_to lincoln_riders_user_mypage_mapped_images_path do%>
+			<div class="bar_link">
+				<i class="fas fa-motorcycle bar_icon"></i>
+			</div>
+		<%end%>
+		<%= link_to lincoln_riders_user_path(@user) do%>
+			<dvi class="bar_link">
+				<i class="fas fa-heart bar_icon"></i>
+			</dvi>
+		<%end%>
+	</div>
+	<div class="content clearfix">
+
+		<div class="mapped_images_index">
+			<% @user.mapped_images.each do |mapped_image| %>
+				<div class="mapped_image">
+					<div class="user">
+						<%= link_to lincoln_riders_user_path(mapped_image.user_id) do%>
+							<%=mapped_image.user.email%>
+						<%end%>
+					</div>
+		        	<%= link_to lincoln_riders_user_mapped_image_path(mapped_image.user_id,mapped_image.id) do %>
+		        		<%= mapped_image.text %>
+		        	<% end %>
+					<%= attachment_image_tag mapped_image, :image %>
+				</div>
+			<% end %>
+			<div class="paginate">
+				<%= paginate @mapped_images %>
+			</div>
+		</div>
+
+
+	</div>
+
+</div>

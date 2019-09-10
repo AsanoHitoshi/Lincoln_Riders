@@ -1,0 +1,34 @@
+<div class="sidebar">
+	<div class="users-info">
+		<h3>User Info</h3>
+		<div class="user">
+			name <%= current_user.name%><br>
+			introduction<%= current_user.introduction%>
+		</div>
+		<div class="follow">
+			follow :<%= link_to following_users_index_lincoln_riders_user_path(current_user) do %><%=current_user.following_users.count%><%end%>
+			follower:<%= link_to followed_users_index_lincoln_riders_user_path(current_user) do %><%=current_user.followed_users.count%><%end%>
+        </div>
+	</div>
+	<div>
+		<h3>Show Page</h3>
+		<%= link_to lincoln_riders_user_mypage_posts_path do%>
+			<div>Post</div>
+		<%end%>
+		<%= link_to lincoln_riders_user_mypage_mapped_images_path do%>
+			<div>Mapped Image</div>
+		<%end%>
+	</div>
+
+	<div class="newpost">
+		<h3>New Post</h3>
+		<%= form_with(model: new_post,url: lincoln_riders_user_posts_path(current_user.id)) do |f| %>
+			<%= f.label :内容%><br>
+			<%= f.text_area :text %><br>
+			<%= f.label :image%><br>
+			<%= f.attachment_field :image %><br>
+
+			<%= f.submit "Create Book" ,class:"btn btn-default" %>
+		<%end%>
+	</div>
+</div>

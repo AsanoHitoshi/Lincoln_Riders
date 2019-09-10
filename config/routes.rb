@@ -8,7 +8,8 @@ Rails.application.routes.draw do
 	}
 
 	namespace :lincoln_riders do
-		get 'users/mypage' => 'users#mypage',as: 'user_mypage'
+		get 'users/mypage/posts' => 'users#mypage_posts',as: 'user_mypage_posts'
+		get 'users/mypage/mapped_images' => 'users#mypage_mapped_images',as: 'user_mypage_mapped_images'
 		get 'homes/about' => 'homes#about', as: 'about'
 		root 'homes#top'
 		get 'mapped_images' => 'mapped_images#index', as: 'mapped_images'
