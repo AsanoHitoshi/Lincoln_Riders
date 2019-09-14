@@ -1,6 +1,31 @@
-<%=@user.email%>
+<div class="background clearfix">
 
-<%=@post.text%>
-
-<%= link_to edit_lincoln_riders_user_post_path(@post) do%>edit<%end%>
-<%= link_to lincoln_riders_user_post_path(@post), method: :delete do%>delete<%end%>
+	<%= render 'layouts/sidebar',new_post: @new_post %>
+	<div class="content clearfix">
+		<div class="post_show">
+			<div class="post_titile clearfix">
+				<div class="post_user">
+					<h4>
+						<%=@user.name%>
+					</h4>
+				</div>
+				<div class="post_date">
+					<%=@post.created_at.strftime('%Y/%m/%d %H:%M:%S')%>
+				</div>
+			</div>
+			<div>
+				<h3>
+					<%=@post.text%>
+				</h3>
+				<div class="images_post_show">
+					<%= attachment_image_tag @post, :image ,class: "show_post_image"%>
+				</div>
+			<div class="links">
+				<h4>
+					<%= link_to edit_lincoln_riders_user_post_path(@post) do%>edit<%end%> /
+					<%= link_to lincoln_riders_user_post_path(@post), method: :delete do%>delete<%end%>
+				</h4>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,10 @@
+<% users.each do |user|%>
+	<div class="user">
+		<h4><%= user.name %></h4>
+		<%if user.introduction == nil %>
+			<p>文章がありません</p>
+		<%else%>
+			<p><%= user.introduction %></p>
+		<%end%>
+	</div>
+<%end%>

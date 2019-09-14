@@ -1,0 +1,7 @@
+<div class="mapped_image_positions">
+	<% i = 0 %>
+	<%mapped_images.each do |mapped_image| %>
+		<%= render 'lincoln_riders/mapped_images/mapped_image_position',mapped_image: mapped_image,i:i%>
+		<% i += 1 %>
+	<% end %>
+</div>

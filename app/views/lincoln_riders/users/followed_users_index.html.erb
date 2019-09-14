@@ -1,5 +1,8 @@
-followed_user_index.html.erb
+<div class="background clearfix">
 
-<% @user.followed_users.each do |followed_user|%>
-	<%= followed_user.email %>
-<%end%>
+	<%= render 'layouts/sidebar',new_post: @new_post %>
+	<div class=content>
+		<h2>Follower</h2>
+		<%= render 'lincoln_riders/users/users_index',users: @user.followed_users %>
+	</div>
+</div>

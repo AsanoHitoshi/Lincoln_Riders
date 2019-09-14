@@ -1,1 +1,34 @@
-top.html.erb
+<div class="a">
+    <div class="b"><%= image_tag 'top_image_2.jpg', class: 'c' %></div>
+    <div class="b"><%= image_tag 'top_image_1.jpg', class: 'c' %></div>
+    <div class="b"><%= image_tag 'top_image_3.jpg', class: 'c' %></div>
+</div>
+
+<div class="top_content">
+	<div class="description">
+		<div class="clearfix">
+			<span class="left">SNS of the riders,</span>
+		</div>
+		<div class="center">
+			<span class="center">by the riders,</span>
+		</div>
+		<div class="clearfix">
+			<span class="right">for the riders</span>
+		</div>
+		<div class="clearfix">
+			<span class="japanese">バイク乗りのためのバイク乗りによるバイク乗りのSNS</span>
+		</div>
+	</div>
+
+	<div>
+		<div>
+			<span class="link_title">登録はこちらから</span>
+			<span class="link"><%= link_to new_user_registration_path do%>signup<%end%></span>
+		</div>
+		<div>
+			<span class="link_title">ログインはこちらから</span>
+			<span class="link"><%= link_to new_user_session_path do%>login<%end%></span>
+		</div>
+	</div>
+	<div>About me</div>
+</div>

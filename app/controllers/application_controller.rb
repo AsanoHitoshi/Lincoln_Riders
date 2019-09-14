@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
 		when Admin
 		when User
-			lincoln_riders_user_mypage_path
+			lincoln_riders_user_mypage_posts_path
 		end
 	end
 
@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
 
 		when Admin
 		when User
-			lincoln_riders_root_path
 		end
 	end
 end
