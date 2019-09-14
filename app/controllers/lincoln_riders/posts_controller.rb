@@ -1,5 +1,7 @@
 class LincolnRiders::PostsController < ApplicationController
 
+PER = 10
+
 	def create
 		@post = Post.new(post_params)
 		@post.user_id = current_user.id
@@ -9,10 +11,14 @@ class LincolnRiders::PostsController < ApplicationController
 			redirect_to new_user_session_path
 		end
 	end
-
+	def index
+		@new_post =  Post.new
+		@posts = Post.all.page(params[:page]).per(PER)
+	end
 	def show
-		@user = User.find_by(params[:user_id])
-		@post = Post.find_by(params[:id])
+		@user = User.find_by(id: params[:user_id])
+		@post = Post.find_by(id: params[:id])
+		@new_post =  Post.new
 	end
 
 	def edit

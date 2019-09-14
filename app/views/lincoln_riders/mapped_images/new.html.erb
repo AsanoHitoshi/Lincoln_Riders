@@ -1,9 +1,8 @@
-<script>
-    getMap.getAddress();
-</script>
 
 <div class="background clearfix">
   <%= render 'layouts/sidebar',new_post: @new_post %>
+  <div class="content clearfix">
+
   <%= form_with(model: @mapped_image, url: lincoln_riders_user_mapped_images_path(current_user.id), local: true) do |form| %>
       <%= form.label :text %><br>
       <%= form.text_field :text %><br>
@@ -22,4 +21,9 @@
     </form>
     <!-- 地図を表示させる要素 -->
     <div class="map_box01"><div id="map-canvas" style="width: 500px;height: 350px;"></div></div>
+  </div>
 </div>
+
+<script>
+    GetMapForNew.CenterMaker();
+</script>

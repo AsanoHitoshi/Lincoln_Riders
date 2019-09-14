@@ -6,6 +6,7 @@
 	float: left;
 	width: 100%;
 }
+
 .post_user{
 	float: left;
 }
@@ -32,4 +33,19 @@
 .post_image{
 	max-width: 90px;
 	max-height: 100px
+}
+
+.post_titile{
+	border-bottom: solid;
+	margin-bottom: 20px;
+}
+
+.links{
+	border-top: solid;
+	margin-top: 20px;
+
+}
+
+.show_post_image{
+	width: 100%;
 }

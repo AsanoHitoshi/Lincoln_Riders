@@ -14,7 +14,7 @@
 		<%end%>
 	</div>
 	<div class="content clearfix">
-		<h2>Mypage Mapped Images</h2>
+		<h2><%=@user.name%>'s Mapped Images</h2>
 		<div class="map">
 			<!-- 地図を表示させる要素 -->
 			<div class="map_box01" style="width: 100%;height: 350px;"><div id="map-canvas" style="width: 100%;height: 100%;"></div></div>
@@ -31,6 +31,6 @@
 
 <script>
 
-GetMapForMyPage.getAddress();
+	GetMapForMyPage.getAddress();
 
 </script>

@@ -21,16 +21,24 @@ PER = 10
 		@new_post = Post.new
 	end
 
-	def show
+	def show_posts
 		@user = User.find_by(params[:id])
+		@posts = @user.posts.page(params[:page]).per(PER)
 		@new_post = Post.new
 	end
-
+	def show_mapped_images
+		@user = User.find_by(params[:id])
+		@mapped_images = @user.mapped_images.page(params[:page]).per(PER)
+		@new_post = Post.new
+	end
 	def following_users_index
 		@user = User.find_by(id: params[:id])
+		@new_post = Post.new
 	end
 
 	def followed_users_index
 		@user = User.find_by(id: params[:id])
+		@new_post = Post.new
 	end
+
 end

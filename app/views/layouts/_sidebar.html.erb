@@ -22,13 +22,18 @@
 
 	<div class="newpost">
 		<h3>New Post</h3>
-		<%= form_with(model: new_post,url: lincoln_riders_user_posts_path(current_user.id)) do |f| %>
+		<%= form_for(new_post,url: lincoln_riders_user_posts_path(current_user.id)) do |f| %>
 			<%= f.label :内容%><br>
 			<%= f.text_area :text %><br>
 			<%= f.label :image%><br>
 			<%= f.attachment_field :image %><br>
 
 			<%= f.submit "Create Book" ,class:"btn btn-default" %>
+		<%end%>
+	</div>
+	<div class="newmappedimage">
+		<%= link_to new_lincoln_riders_user_mapped_image_path(current_user) do%>
+			<h3>Mapped Image</h3>
 		<%end%>
 	</div>
 </div>

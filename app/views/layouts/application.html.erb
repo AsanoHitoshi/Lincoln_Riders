@@ -24,8 +24,8 @@
             <ul>
               <%if user_signed_in?%>
                 <li class="nav_item"><%= link_to destroy_user_session_path, method: :delete do %>logout<% end %></li>
-                <li class="nav_item"><%= link_to lincoln_riders_about_path do%>about<%end%></li>
                 <li class="nav_item"><%= link_to lincoln_riders_user_mypage_posts_path do%><%=current_user.name%><%end%></li>
+                <li class="nav_item"><%= link_to lincoln_riders_about_path do%>about<%end%></li>
                 <li class="nav_item"><%= link_to lincoln_riders_root_path do%>top<%end%></li>
               <%else%>
                 <li class="nav_item"><%= link_to new_user_session_path do%>login<%end%></li>
@@ -33,6 +33,10 @@
                 <li class="nav_item"><%= link_to lincoln_riders_about_path do%>about<%end%></li>
                 <li class="nav_item"><%= link_to lincoln_riders_root_path do%>top<%end%></li>
               <%end%>
+            </ul>
+            <ul>
+              <li class="nav_item"><%= link_to lincoln_riders_mapped_images_path do%>mapped image<%end%></li>
+              <li class="nav_item"><%= link_to  lincoln_riders_posts_path do%>post<%end%></li>
             </ul>
           </div>
       </nav>

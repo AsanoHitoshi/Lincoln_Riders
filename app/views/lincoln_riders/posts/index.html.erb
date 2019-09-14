@@ -2,7 +2,8 @@
 
 	<%= render 'layouts/sidebar',new_post: @new_post %>
 	<div class=content>
-		<h2>Follow</h2>
-		<%= render 'lincoln_riders/users/users_index',users: @user.following_users %>
+		<h3>Post</h3>
+		<%= render 'lincoln_riders/posts/posts_index',posts: @posts %>
+		</div>
 	</div>
 </div>
