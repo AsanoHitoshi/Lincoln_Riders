@@ -20,10 +20,12 @@ Rails.application.routes.draw do
 		resources :users, only: [:edit,:update] do
 			resource :follow_relationships, only: [:create, :destroy]
 			get :following_users_index, on: :member
-    		get :followed_users_index, on: :member
-  			resources :posts, only: [:create,:show,:edit,:destroy,:update]
+			get :followed_users_index, on: :member
+			resources :posts, only: [:create,:show,:edit,:destroy,:update] do
+				resource :post_favs, only: [:create, :destroy]
+			end
 			resources :mapped_images,only: [:create,:show,:edit,:update,:destroy,:new]
-  		end
+		end
 	end
 
 #for admins

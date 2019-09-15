@@ -27,6 +27,26 @@ $(function() {
 });
 
 
+$(function() {
+  $(document).on('click', '#post_fav a', function() {
+    if ($('a').val() == '') {
+      return false;
+    }
+  });
+  $(document).on('ajax:success', '#post_fav a', function(e) {
+    console.log(e.detail[0][0]);
+    if (e.detail[0][0].done == "save"){
+        var post_fav = document.getElementById('post_fav')
+        post_fav.innerHTML = '<a class="post_fav_deatroy" data-remote="true" rel="nofollow" data-method="delete" href="/lincoln_riders/users/'+e.detail[0][0].user_id+'/posts/'+e.detail[0][0].post_id+'/post_favs"><i class="fa fa-heart" aria-hidden="true" style="color:red;"></i></a>'
+    }
+    if (e.detail[0][0].done == "destroy"){
+        var post_fav = document.getElementById('post_fav')
+        post_fav.innerHTML = '<a class="post_fav_create" data-remote="true" rel="nofollow" data-method="post" href="/lincoln_riders/users/'+e.detail[0][0].user_id+'/posts/'+e.detail[0][0].post_id+'/post_favs"><i class="fa fa-heart" aria-hidden="true"></i></a>'
+    }
+  });
+
+});
+
 var GetMapForMyPage = (function() {
   function codeAddress(mapped_image_id,mapped_image_positions,address,mapped_image_position_size) {
     // google.maps.Geocoder()コンストラクタのインスタンスを生成
