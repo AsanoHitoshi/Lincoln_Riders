@@ -15,6 +15,7 @@ class User < ApplicationRecord
 	has_many :mapped_images
 	has_many :post_favs
 	has_many :favorite_posts, through: :post_favs, source: :post
+	has_many :mapped_images_favs
 
   def followed_by?(user)
     passive_follow_relationships.find_by(following_user_id: user.id).present?

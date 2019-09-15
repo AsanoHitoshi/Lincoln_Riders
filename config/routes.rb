@@ -24,7 +24,9 @@ Rails.application.routes.draw do
 			resources :posts, only: [:create,:show,:edit,:destroy,:update] do
 				resource :post_favs, only: [:create, :destroy]
 			end
-			resources :mapped_images,only: [:create,:show,:edit,:update,:destroy,:new]
+			resources :mapped_images,only: [:create,:show,:edit,:update,:destroy,:new] do
+				resource :mapped_images_favs, only: [:create, :destroy]
+			end
 		end
 	end
 

@@ -45,6 +45,18 @@ $(function() {
     }
   });
 
+    $(document).on('ajax:success', '#mapped_images_fav a', function(e) {
+    console.log(e.detail[0][0]);
+    if (e.detail[0][0].done == "save"){
+        var mapped_images_fav = document.getElementById('mapped_images_fav')
+        mapped_images_fav.innerHTML = '<a class="mapped_images_fav_deatroy" data-remote="true" rel="nofollow" data-method="delete" href="/lincoln_riders/users/'+e.detail[0][0].user_id+'/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true" style="color:red;"></i></a>'
+    }
+    if (e.detail[0][0].done == "destroy"){
+        var mapped_images_fav = document.getElementById('mapped_images_fav')
+        mapped_images_fav.innerHTML = '<a class="mapped_images_fav_create" data-remote="true" rel="nofollow" data-method="post" href="/lincoln_riders/users/'+e.detail[0][0].user_id+'/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true"></i></a>'
+    }
+  });
+
 });
 
 var GetMapForMyPage = (function() {
