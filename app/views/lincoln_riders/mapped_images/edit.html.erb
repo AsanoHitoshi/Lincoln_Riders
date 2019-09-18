@@ -3,8 +3,8 @@
     <%= form.text_field :text %><br>
 
     <%= form.label :image %><br>
-    <%= form.text_field :position_lat ,{id: "mapped_image_position_lat"}%>
-    <%= form.text_field :position_lng ,{id: "mapped_image_position_lng"}%>
+      <%= form.text_field :position_lat %>
+      <%= form.text_field :position_lng %>
 
     <%= form.submit  :class=>"btn btn-primary" %>
 <% end %>
@@ -17,104 +17,6 @@
   <div class="map_box01"><div id="map-canvas" style="width: 500px;height: 350px;"></div></div>
 
 
-
-
-
 <script>
-var getMap = (function() {
-  function codeAddress(mapped_image_position,address) {
-    // google.maps.Geocoder()コンストラクタのインスタンスを生成
-    var geocoder = new google.maps.Geocoder();
-
-    // 地図表示に関するオプション
-    var mapOptions = {
-      zoom: 16,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    // 地図を表示させるインスタンスを生成
-    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-    //マーカー変数用意
-    var marker;
-
-
-
-        // 変換した緯度・経度情報を地図の中心に表示
-        map.setCenter(mapped_image_position);
-
-        // マーカー設定
-        marker = new google.maps.Marker({
-          map: map,
-          position: mapped_image_position
-        });
-        document.getElementById('mapped_image_position_lat').value= marker.position.lat();
-        document.getElementById('mapped_image_position_lng').value= marker.position.lng();
-
-
-    // マップをクリックで位置変更
-    map.addListener('click', function(e) {
-      getClickLatLng(e.latLng, map);
-    });
-
-
-    function getClickLatLng(lat_lng, map) {
-
-      // マーカーを設置
-      marker.setMap(null);
-      marker = new google.maps.Marker({
-        position: lat_lng,
-        map: map
-      });
-
-      document.getElementById('mapped_image_position_lat').value=lat_lng.lat();
-      document.getElementById('mapped_image_position_lng').value=lat_lng.lng();
-      // 座標の中心をずらす
-      map.panTo(lat_lng);
-    }
-
-  }
-
-
-
-  //inputのvalueで検索して地図を表示
-  return {
-    getAddress: function() {
-      // ボタンに指定したid要素を取得
-      var button = document.getElementById("map_button");
-
-      // ボタンが押された時の処理
-      button.onclick = function() {
-        // フォームに入力された住所情報を取得
-        var address = document.getElementById("address").value;
-        // 取得した住所を引数に指定してcodeAddress()関数を実行
-        codeAddress(address);
-      }
-
-      //読み込まれたときに地図を表示
-      window.onload = function(){
-
-		var lat_string = document.getElementById("mapped_image_position_lat").value;
-		var lng_string = document.getElementById("mapped_image_position_lng").value;
-
-		var mapped_image_position = {
-			lat: Number(lat_string), // 緯度
-			lng: Number(lng_string) // 経度
-        };
-        // フォームに入力された住所情報を取得
-        var address = document.getElementById("address").value;
-        // 取得した住所を引数に指定してcodeAddress()関数を実行
-        codeAddress(mapped_image_position,address);
-      }
-    }
-
-  };
-
-})();
-
-
-
-getMap.getAddress();
-
-
+    GetMapForNew.CenterMaker();
 </script>

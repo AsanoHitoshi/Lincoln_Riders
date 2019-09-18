@@ -18,7 +18,10 @@ SNS of the riders, by the riders, for the riders
 	フレームワーク：Ruby On Rails
 	Gem：devise
 		 cocoon
+		 refile
+		 refile-mini_magick
 	外部ライブラリ：slick
+	API：
 フロントエンド
 	CSSフレームワーク：BootStrap
 	JavaScriptライブラリ：JQuery

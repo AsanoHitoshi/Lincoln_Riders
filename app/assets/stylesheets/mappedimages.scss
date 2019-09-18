@@ -41,3 +41,26 @@
 .mapped_image_field{
 	background-color: white;
 }
+
+
+.links #mapped_images_fav{
+	width: 20%;
+	float:left;
+	margin-left: 2%;
+	text-align: center;
+}
+
+.infowindow{
+	width: 258px;
+	height: 146px;
+}
+
+.infowindow .mapped_image{
+	width: 50%;
+	height: 100%;
+}
+
+.infowindow .mapped_image_text{
+	float: right;
+	width: 50%;
+}

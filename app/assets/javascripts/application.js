@@ -37,11 +37,11 @@ $(function() {
     console.log(e.detail[0][0]);
     if (e.detail[0][0].done == "save"){
         var post_fav = document.getElementById('post_fav')
-        post_fav.innerHTML = '<a class="post_fav_deatroy" data-remote="true" rel="nofollow" data-method="delete" href="/lincoln_riders/users/'+e.detail[0][0].user_id+'/posts/'+e.detail[0][0].post_id+'/post_favs"><i class="fa fa-heart" aria-hidden="true" style="color:red;"></i></a>'
+        post_fav.innerHTML = '<a class="post_fav_deatroy" data-remote="true" rel="nofollow" data-method="delete" href="/lincoln_riders/posts/'+e.detail[0][0].post_id+'/post_favs"><i class="fa fa-heart" aria-hidden="true" style="color:red;"></i></a>'
     }
     if (e.detail[0][0].done == "destroy"){
         var post_fav = document.getElementById('post_fav')
-        post_fav.innerHTML = '<a class="post_fav_create" data-remote="true" rel="nofollow" data-method="post" href="/lincoln_riders/users/'+e.detail[0][0].user_id+'/posts/'+e.detail[0][0].post_id+'/post_favs"><i class="fa fa-heart" aria-hidden="true"></i></a>'
+        post_fav.innerHTML = '<a class="post_fav_create" data-remote="true" rel="nofollow" data-method="post" href="/lincoln_riders/posts/'+e.detail[0][0].post_id+'/post_favs"><i class="fa fa-heart" aria-hidden="true"></i></a>'
     }
   });
 
@@ -49,11 +49,11 @@ $(function() {
     console.log(e.detail[0][0]);
     if (e.detail[0][0].done == "save"){
         var mapped_images_fav = document.getElementById('mapped_images_fav')
-        mapped_images_fav.innerHTML = '<a class="mapped_images_fav_deatroy" data-remote="true" rel="nofollow" data-method="delete" href="/lincoln_riders/users/'+e.detail[0][0].user_id+'/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true" style="color:red;"></i></a>'
+        mapped_images_fav.innerHTML = '<a class="mapped_images_fav_deatroy" data-remote="true" rel="nofollow" data-method="delete" href="/lincoln_riders/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true" style="color:red;"></i></a>'
     }
     if (e.detail[0][0].done == "destroy"){
         var mapped_images_fav = document.getElementById('mapped_images_fav')
-        mapped_images_fav.innerHTML = '<a class="mapped_images_fav_create" data-remote="true" rel="nofollow" data-method="post" href="/lincoln_riders/users/'+e.detail[0][0].user_id+'/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true"></i></a>'
+        mapped_images_fav.innerHTML = '<a class="mapped_images_fav_create" data-remote="true" rel="nofollow" data-method="post" href="/lincoln_riders/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true"></i></a>'
     }
   });
 
@@ -254,8 +254,10 @@ var GetMap = (function() {
                 dataType: "json",
                 success: function(data) {
                   console.log("ajax成功");
-                  infoWindow[i].setContent( '<div>'+data.text+'</div>'+
-                                            '<img class="attachment mapped_image image" src="'+data.image_id+'">' ) ;
+                  infoWindow[i].setContent( '<div class="infowindow">'+
+                                            '<div class="mapped_image_text">'+data.text+'</div>'+
+                                            '<img class="attachment mapped_image image " src="'+data.image_id+'">'+
+                                            '</div>') ;
                   infoWindow[i].open(map, marker[i]); // 吹き出しの表示
                 },
                 error: function(){
@@ -289,6 +291,19 @@ var GetMap = (function() {
 
       // 座標の中心をずらす
       map.panTo(lat_lng);
+    }
+
+        for (var i = 0; i < mapped_image_position_size; i++) {
+      click_Event(i,mapped_image_positions[i],map);
+    }
+    function click_Event(i,lat_lng, map) {
+      $('.mapped_image_index_'+i).on('click', function() {
+        console.log('click');
+        // 座標の中心をずらす
+        map.panTo(lat_lng);
+        $(".mapped_image_field").css('background-color','white');
+        $(".mapped_image_field_"+i).css('background-color','lightgray');
+      });
     }
 
     }

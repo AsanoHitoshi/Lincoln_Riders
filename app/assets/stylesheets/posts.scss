@@ -49,3 +49,24 @@
 .show_post_image{
 	width: 100%;
 }
+
+
+.links #post_fav{
+	width: 20%;
+	float:left;
+	margin-left: 2%;
+	text-align: center;
+}
+
+.links .edit{
+	width: 20%;
+	float:right;
+	text-align: center;
+}
+
+.links .delete{
+	width: 20%;
+	float:right;
+	margin-right: 2%;
+	text-align: center;
+}

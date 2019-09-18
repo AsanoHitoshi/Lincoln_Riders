@@ -14,10 +14,13 @@ class User < ApplicationRecord
 	has_many :posts
 	has_many :mapped_images
 	has_many :post_favs
-	has_many :favorite_posts, through: :post_favs, source: :post
+	has_many :fav_posts, through: :post_favs, source: :post
 	has_many :mapped_images_favs
+	has_many :fav_mapped_images, through: :mapped_images_favs, source: :mapped_image
+
 
   def followed_by?(user)
     passive_follow_relationships.find_by(following_user_id: user.id).present?
   end
+
 end

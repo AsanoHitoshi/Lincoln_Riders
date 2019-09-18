@@ -1,5 +1,5 @@
-<div class="background">
-  <div class="content-field">
+<div class="background clearfix">
+  <div class="content clearfix">
     <h2>User Log in</h2>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -28,3 +28,10 @@
     <%= render "users/shared/links" %>
   </div>
 </div>
+
+<style>
+  .content{
+    width: 96%;
+    text-align: center;
+  }
+</style>

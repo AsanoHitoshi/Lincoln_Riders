@@ -6,18 +6,18 @@ PER = 10
 		@post = Post.new(post_params)
 		@post.user_id = current_user.id
 		if @post.save
-			redirect_to lincoln_riders_user_post_path(@post.user_id,@post.id)
+			redirect_to lincoln_riders_post_path(@post.id)
 		else
 			redirect_to new_user_session_path
 		end
 	end
 	def index
 		@new_post =  Post.new
-		@posts = Post.all.page(params[:page]).per(PER)
+		@posts = Post.all.order(id: "ASC").page(params[:page]).per(PER)
 	end
 	def show
-		@user = User.find_by(id: params[:user_id])
 		@post = Post.find_by(id: params[:id])
+		@user = User.find_by(id: @post.user_id)
 		@new_post =  Post.new
 	end
 
