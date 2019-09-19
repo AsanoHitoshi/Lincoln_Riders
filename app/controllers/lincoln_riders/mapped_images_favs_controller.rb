@@ -1,4 +1,5 @@
 class LincolnRiders::MappedImagesFavsController < ApplicationController
+	before_action :authenticate_user!
 
 	def create
 		mapped_images_fav = MappedImagesFav.new(user_id: current_user.id,mapped_image_id: params[:mapped_image_id])

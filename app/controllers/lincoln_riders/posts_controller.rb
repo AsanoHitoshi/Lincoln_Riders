@@ -1,4 +1,5 @@
 class LincolnRiders::PostsController < ApplicationController
+	before_action :authenticate_user!
 
 PER = 10
 
@@ -23,6 +24,7 @@ PER = 10
 
 	def edit
 		@post = Post.find_by(params[:id])
+		@new_post =  Post.new
 	end
 
 	def update

@@ -1,4 +1,5 @@
 class LincolnRiders::PostFavsController < ApplicationController
+	before_action :authenticate_user!
 
 	def create
 		@post_fav = PostFav.new(user_id: current_user.id,post_id: params[:post_id])

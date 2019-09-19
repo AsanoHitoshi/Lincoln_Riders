@@ -1,5 +1,5 @@
 class LincolnRiders::UsersController < ApplicationController
-
+	before_action :authenticate_user!
 PER = 10
 
 	def mypage_posts
@@ -61,4 +61,20 @@ PER = 10
 		@new_post = Post.new
 	end
 
+	def edit
+		@user =User.find_by(id: params[:id])
+	end
+	def update
+		@user = User.find_by(id: params[:id])
+		if @user.update(user_params)
+			redirect_to lincoln_riders_user_mypage_posts_path
+		else
+		end
+
+	end
+
+	private
+		def user_params
+			params.require(:user).permit(:name, :introduction, :profile_image, :email)
+		end
 end

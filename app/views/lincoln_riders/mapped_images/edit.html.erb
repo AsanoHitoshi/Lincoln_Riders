@@ -1,21 +1,29 @@
-<%= form_with(model: @mapped_image, url: lincoln_riders_user_mapped_images_path(current_user.id), local: true) do |form| %>
-    <%= form.label :text %><br>
-    <%= form.text_field :text %><br>
+<div class="background clearfix">
 
-    <%= form.label :image %><br>
-      <%= form.text_field :position_lat %>
-      <%= form.text_field :position_lng %>
+  <%= render 'layouts/sidebar',new_post: @new_post %>
+  <div class="content clearfix">
 
-    <%= form.submit  :class=>"btn btn-primary" %>
-<% end %>
-  <p>住所や駅名、目印などで検索できます。</p>
-  <form onsubmit="return false;">
-    <input type="text" value="" id="address">
-    <button type="button" value="検索" id="map_button">検索</button>
-  </form>
-  <!-- 地図を表示させる要素 -->
-  <div class="map_box01"><div id="map-canvas" style="width: 500px;height: 350px;"></div></div>
+    <%= form_with(model: @mapped_image, url: lincoln_riders_mapped_images_path(@mapped_image), local: true) do |form| %>
+        <%= form.label :text %><br>
+        <%= form.text_field :text %><br>
 
+        <%= form.label :image %><br>
+        <%= form.attachment_field :image %>
+
+          <%= form.text_field :position_lat %>
+          <%= form.text_field :position_lng %>
+
+        <%= form.submit  :class=>"btn btn-primary" %>
+    <% end %>
+      <p>住所や駅名、目印などで検索できます。</p>
+      <form onsubmit="return false;">
+        <input type="text" value="" id="address">
+        <button type="button" value="検索" id="map_button">検索</button>
+      </form>
+      <!-- 地図を表示させる要素 -->
+      <div class="map_box01"><div id="map-canvas" style="width: 500px;height: 350px;"></div></div>
+  </div>
+</div>
 
 <script>
     GetMapForNew.CenterMaker();

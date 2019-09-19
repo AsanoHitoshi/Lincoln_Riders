@@ -19,6 +19,9 @@ class User < ApplicationRecord
 	has_many :fav_mapped_images, through: :mapped_images_favs, source: :mapped_image
 
 
+	attachment :profile_image
+
+
   def followed_by?(user)
     passive_follow_relationships.find_by(following_user_id: user.id).present?
   end

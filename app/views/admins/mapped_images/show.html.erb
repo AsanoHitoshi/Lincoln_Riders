@@ -1,0 +1,41 @@
+<div class="background clearfix">
+	<div class="admin_content clearfix">
+		<h3>投稿MappedImgae詳細</h3>
+		<table class="table table-striped">
+			<tr>
+				<td>ID</td>
+								<td>
+					<%=link_to admins_mapped_image_path(@mapped_image) do%>
+						<%=@mapped_image.id%>
+					<%end%>
+				</td>
+			</tr>
+			<tr>
+				<td>内容</td>
+				<td><%=@mapped_image.text%></td>
+			</tr>
+			<tr>
+				<td>画像</td>
+				<td><%= attachment_image_tag @mapped_image, :image ,class: "admin_show_image"%></td>
+			</tr>
+			<tr>
+				<td>位置情報</td>
+				<td><%=@mapped_image.position_lat%><br><%=@mapped_image.position_lng%></td>
+			</tr>
+			<tr>
+				<td>ユーザー名</td>
+				<td><%=link_to admins_user_path(@mapped_image.user) do%>
+						<%=@mapped_image.user.name%>
+					<%end%>
+				</td>
+			</tr>
+			<tr>
+				<td>投稿日時</td>
+				<td><%=@mapped_image.created_at.strftime('%Y/%m/%d %H:%M:%S')%></td>
+			</tr>
+		</table>
+		<div class="delete">
+			<%=link_to "削除", admins_mapped_image_path(@mapped_image.id), method: :delete %>
+		</div>
+	</div>
+</div>

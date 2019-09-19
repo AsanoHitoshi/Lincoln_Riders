@@ -1,6 +1,7 @@
 class LincolnRiders::MappedImagesController < ApplicationController
+	before_action :authenticate_user!
 
-PER=10
+PER=6
 
 	def index
 		@mapped_images = MappedImage.all.order(id: "ASC").page(params[:page]).per(PER)
@@ -30,6 +31,7 @@ PER=10
 
 	def edit
 		@mapped_image = MappedImage.find_by(id: params[:id])
+		@new_post = Post.new
 	end
 
 	def destroy

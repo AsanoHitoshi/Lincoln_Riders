@@ -1,10 +1,26 @@
-<% users.each do |user|%>
-	<div class="user">
-		<h4><%= user.name %></h4>
-		<%if user.introduction == nil %>
-			<p>文章がありません</p>
-		<%else%>
-			<p><%= user.introduction %></p>
+
+<div class="users">
+	<%if users.length != 0 %>
+		<% users.each do |user|%>
+			<div class="user">
+				<h4>
+					<%if user.profile_image == nil %>
+						<%= image_tag 'noimage.jpg' ,class: "user_profile_icon"%>
+					<%else%>
+						<%= attachment_image_tag user, :profile_image ,class: "user_profile_icon"%>
+					<%end%>
+					<%= user.name %>
+				</h4>
+
+				<%if user.introduction == nil %>
+					<p>文章がありません</p>
+				<%else%>
+					<p><%= user.introduction %></p>
+				<%end%>
+
+			</div>
 		<%end%>
-	</div>
-<%end%>
+	<%else%>
+		<h3>ユーザーがいません</h3>
+	<%end%>
+</div>

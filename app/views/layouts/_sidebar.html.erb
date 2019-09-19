@@ -2,12 +2,20 @@
 	<div class="users-info">
 		<h3>User Info</h3>
 		<div class="user">
+			<div>
+			<%= attachment_image_tag current_user, :profile_image ,class: "user_profile_icon"%>
+		</div>
 			name <%= current_user.name%><br>
 			introduction<%= current_user.introduction%>
 		</div>
 		<div class="follow">
 			follow :<%= link_to following_users_index_lincoln_riders_user_path(current_user) do %><%=current_user.following_users.count%><%end%>
 			follower:<%= link_to followed_users_index_lincoln_riders_user_path(current_user) do %><%=current_user.followed_users.count%><%end%>
+        </div>
+        <div class="edit">
+			<%= link_to edit_user_registration_path(current_user) do%>
+			edit
+			<%end%>
         </div>
 	</div>
 	<div>

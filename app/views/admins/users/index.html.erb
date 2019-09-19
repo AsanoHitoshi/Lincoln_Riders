@@ -1,0 +1,26 @@
+<div class="background clearfix">
+	<div class="admin_content clearfix">
+		<h3>登録ユーザー一覧</h3>
+		<table class="table table-striped">
+			<tr>
+				<td>名前</td>
+				<td>メールアドレス</td>
+				<td>登録日</td>
+				<td></td>
+			</tr>
+			<%@users.each do |user|%>
+			<tr>
+				<td><%=link_to admins_user_path(user) do%>
+						<%=user.name%>
+					<%end%>
+				</td>
+				<td><%=user.email%></td>
+				<td><%=user.created_at.strftime('%Y/%m/%d')%></td>
+				<td><%=link_to "削除", admins_user_path(user.id), method: :delete %></td>
+			</tr>
+			<%end%>
+			<tr>
+			</tr>
+		</table>
+	</div>
+</div>
