@@ -61,7 +61,20 @@ $(function() {
 
 
 var SetMap = (function() {
-
+    function GetPresentLocation() {
+      function success(position) {
+        var lat  = position.coords.latitude;//緯度
+        var lng = position.coords.longitude;//経度
+        // 位置情報
+        var lat_lng = new google.maps.LatLng( lat , lng ) ;
+        console.log(lat_lng)
+        return lat_lng
+      };
+      function error() {
+        console.log("座標位置を取得できません")
+      };
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
     // 地図の初期設定
     function InitMap(map_canvas,mapped_image_position_lat,mapped_image_position_lng){ //map_canvas = id name of div showing map
       var lat_lng = GetPositionFrom(mapped_image_position_lat, mapped_image_position_lng)
@@ -84,7 +97,7 @@ var SetMap = (function() {
 
       if (lat_string == "" || lng_string == ""){
         console.log("位置情報が空欄です")
-        var lat_lng = {lat: -34.397, lng: 150.644}
+        var lat_lng = GetPresentLocation()
       } else{
         var lat_lng = {
           lat: Number(lat_string), // 緯度
