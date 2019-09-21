@@ -1,35 +1,6 @@
 <div class="posts">
-	<%if posts.length != 0%>
-		<% posts.each do |post| %>
-			<div class="post_field">
-				<div class="post_title clearfix">
-					<%= link_to lincoln_riders_user_show_posts_path(post.user) do%>
-						<div class="post_user">
-							<%= attachment_image_tag post.user, :profile_image ,class: "user_profile_icon"%>
-							<%= post.user.name %>
-						</div>
-					<%end%>
-					<div class="post_date">
-						<%=post.created_at.strftime('%Y/%m/%d')%>
-					</div>
-				</div>
-				<%= link_to lincoln_riders_post_path(post.id) do %>
-					<div class="post_content">
-						<div class="post_text">
-							<%= post.text %>
-						</div>
-						<div class="post_images">
-							<%= attachment_image_tag post, :image , class: "post_image"%>
-						</div>
-					</div>
-				<% end %>
-			</div>
-		<% end %>
-		<div class="paginate">
-			<%= paginate posts %>
-		</div>
-
-	<%else%>
-		<h3>投稿がありません</h3>
-	<%end%>
+	<%= render 'lincoln_riders/posts/posts_each',posts: posts %>
+	<div class="paginate">
+		<%= paginate posts %>
+	</div>
 </div>

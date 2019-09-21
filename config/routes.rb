@@ -12,13 +12,16 @@ Rails.application.routes.draw do
 		get 'homes/about' => 'homes#about', as: 'about'
 		root 'homes#top'
 
+		get 'users/mypage/' => 'users#mypage',as: 'user_mypage'
 		get 'users/mypage/posts' => 'users#mypage_posts',as: 'user_mypage_posts'
 		get 'users/mypage/posts/favs' => 'users#mypage_fav_posts',as: 'user_mypage_fav_posts'
 		get 'users/mypage/mapped_images' => 'users#mypage_mapped_images',as: 'user_mypage_mapped_images'
 		get 'users/mypage/mapped_images/favs' => 'users#mypage_fav_mapped_images',as: 'user_mypage_fav_mapped_images'
 		get 'users/:id/posts' => 'users#show_posts',as: 'user_show_posts'
+		get 'users/:id/posts/favs' => 'users#show_fav_posts',as: 'user_show_fav_posts'
 		get 'users/:id/mapped_images' => 'users#show_mapped_images',as: 'user_show_mapped_images'
-		resources :users, only: [:edit,:update,:update] do
+		get 'users/:id/mapped_images/favs' => 'users#show_fav_mapped_images',as: 'user_show_fav_mapped_images'
+		resources :users, only: [:edit,:update,:update,:show] do
 			resource :follow_relationships, only: [:create, :destroy]
 			get :following_users_index, on: :member
 			get :followed_users_index, on: :member

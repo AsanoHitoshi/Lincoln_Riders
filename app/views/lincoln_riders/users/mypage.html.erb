@@ -1,0 +1,44 @@
+<div class="background clearfix">
+	<%= render 'layouts/sidebar',new_post: @new_post %>
+	<div class="content clearfix">
+		<h2>My Page</h2>
+
+
+		<div class="posts_index">
+			<h3>Latest Posts</h3>
+				<%= render 'lincoln_riders/posts/posts_each',posts: @latest_posts %>
+				<%= link_to lincoln_riders_user_mypage_posts_path do%>
+					<div class="mypage_index_link">
+						<i class="fas fa-motorcycle bar_icon"></i>もっと見る
+					</div>
+				<%end%>
+			</div>
+			<h3>Latest Mapped Images</h3>
+			<div class="map">
+				<!-- 地図を表示させる要素 -->
+				<div class="map_box01" style="width: 100%;height: 350px;"><div id="map-canvas" style="width: 100%;height: 100%;"></div></div>
+				<form onsubmit="return false;">
+					<input type="text" id="address" value="大阪">
+					<button type="button" value="検索" id="map_button">検索</button>
+				</form>
+			</div>
+			<div class="mapped_images_index">
+				<%= render 'lincoln_riders/mapped_images/mapped_images_each',mapped_images: @latest_mapped_images %>
+				<%= link_to lincoln_riders_user_mypage_mapped_images_path do%>
+					<div class="mypage_index_link">
+						<i class="fas fa-motorcycle bar_icon"></i>もっと見る
+					</div>
+				<%end%>
+			</div>
+
+	</div>
+
+</div>
+
+
+
+<script>
+
+  SetMap.ForRead();
+
+</script>
