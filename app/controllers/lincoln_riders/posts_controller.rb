@@ -14,7 +14,7 @@ PER = 10
 	end
 	def index
 		@new_post =  Post.new
-		@posts = Post.all.order(id: "ASC").page(params[:page]).per(PER)
+		@posts = Post.all.order(id: "DESC").page(params[:page]).per(PER)
 	end
 	def show
 		@post = Post.find_by(id: params[:id])

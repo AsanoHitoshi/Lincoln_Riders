@@ -98,6 +98,7 @@ var SetMap = (function() {
 
     // 検索機能
     function GetAddress(map) {
+      return new Promise((resolve, reject) => {
         var lat_lng
         var address = document.getElementById("address").value;
           // 取得した住所を引数に指定してcodeAddress()関数を実行
@@ -109,15 +110,14 @@ var SetMap = (function() {
           document.getElementById("mapped_image_position_lng").value = results[0].geometry.location.lng();
           console.log('Geocode was successful');
           lat_lng = results[0].geometry.location
+          resolve(lat_lng)
         // ジオコーディングが成功しなかった場合
         } else {
           console.log('Geocode was not successful for the following reason: ' + status);
+          reject()
         }
         });
-
-        return{
-         lat_lng
-        }
+      });
     }
 
 
@@ -234,11 +234,9 @@ var SetMap = (function() {
         var marker = MoveMarker(map.map,marker)
         // ボタンが押された時の処理
         $(document).on('click', '#map_button', function() {
-              $.when(
-                    GetAddress(map.map)
-              ).done(function(){
-                     marker = MoveMarker(map.map,marker.marker)
-              });
+          GetAddress(map.map).then(function(lat_lng){
+            marker = MoveMarker(map.map,marker.marker)
+          });
         });
         map.map.addListener('click', function(e) {
           getClickLatLng(e.latLng);

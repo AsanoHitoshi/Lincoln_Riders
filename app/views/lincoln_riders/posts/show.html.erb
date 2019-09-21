@@ -5,9 +5,10 @@
 		<div class="post_show">
 			<div class="post_titile clearfix">
 				<div class="post_user">
-					<h4>
+					<h5>
+						<%= attachment_image_tag @user, :profile_image ,class: "user_profile_icon"%>
 						<%=@user.name%>
-					</h4>
+					</h5>
 				</div>
 				<div class="post_date">
 					<%=@post.created_at.strftime('%Y/%m/%d %H:%M:%S')%>
@@ -33,12 +34,14 @@
 							<%end%>
 						<%end%>
 					</div>
-					<div class="delete">
-						<%= link_to lincoln_riders_post_path(@post), method: :delete do%>delete<%end%>
-					</div>
-					<div class="edit">
-						<%= link_to edit_lincoln_riders_post_path(@post) do%>edit<%end%>
-					</div>
+					<%if @post.user_id == current_user.id%>
+						<div class="delete">
+							<%= link_to lincoln_riders_post_path(@post), method: :delete do%>delete<%end%>
+						</div>
+						<div class="edit">
+							<%= link_to edit_lincoln_riders_post_path(@post) do%>edit<%end%>
+						</div>
+					<%end%>
 
 				</h4>
 			</div>

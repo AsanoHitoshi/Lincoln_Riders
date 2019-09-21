@@ -6,7 +6,7 @@
 					<%= link_to lincoln_riders_user_show_posts_path(post.user) do%>
 						<div class="post_user">
 							<%= attachment_image_tag post.user, :profile_image ,class: "user_profile_icon"%>
-							<%= post.user.name %>
+							<span class="link_black"><%= post.user.name %></span>
 						</div>
 					<%end%>
 					<div class="post_date">
@@ -16,7 +16,7 @@
 				<%= link_to lincoln_riders_post_path(post.id) do %>
 					<div class="post_content">
 						<div class="post_text">
-							<%= post.text %>
+							<span class="link_black"><%= post.text %></span>
 						</div>
 						<div class="post_images">
 							<%= attachment_image_tag post, :image , class: "post_image"%>
