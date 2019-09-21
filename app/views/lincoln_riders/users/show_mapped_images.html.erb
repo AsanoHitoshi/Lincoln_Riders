@@ -1,18 +1,7 @@
 
 <div class="background clearfix">
 	<%= render 'layouts/sidebar',new_post: @new_post %>
-	<div class="bar">
-		<%= link_to lincoln_riders_user_mypage_mapped_images_path do%>
-			<div class="bar_link">
-				<i class="fas fa-motorcycle bar_icon"></i>
-			</div>
-		<%end%>
-		<%= link_to lincoln_riders_user_path(@user) do%>
-			<dvi class="bar_link">
-				<i class="fas fa-heart bar_icon"></i>
-			</dvi>
-		<%end%>
-	</div>
+	<%= render 'layouts/user_page_bar',bike_path: lincoln_riders_user_show_mapped_images_path(@user),heart_path: lincoln_riders_user_show_fav_mapped_images_path(@user) %>
 	<div class="content clearfix">
 		<h2><%=@user.name%>'s Mapped Images</h2>
 		<div class="map">
@@ -31,6 +20,6 @@
 
 <script>
 
-	GetMapForMyPage.getAddress();
+  SetMap.ForRead();
 
 </script>

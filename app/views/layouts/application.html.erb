@@ -24,7 +24,7 @@
             <ul>
               <%if user_signed_in?%>
                 <li class="nav_item"><%= link_to destroy_user_session_path, method: :delete do %>logout<% end %></li>
-                <li class="nav_item"><%= link_to lincoln_riders_user_mypage_posts_path do%><%=current_user.name%><%end%></li>
+                <li class="nav_item"><%= link_to lincoln_riders_user_mypage_path do%><%=current_user.name%><%end%></li>
                 <li class="nav_item"><%= link_to lincoln_riders_about_path do%>about<%end%></li>
                 <li class="nav_item"><%= link_to lincoln_riders_root_path do%>top<%end%></li>
               <%else%>

@@ -22,8 +22,24 @@
 				</div>
 			<div class="links">
 				<h4>
-					<%= link_to edit_lincoln_riders_user_post_path(@post) do%>edit<%end%> /
-					<%= link_to lincoln_riders_user_post_path(@post), method: :delete do%>delete<%end%>
+					<div id="post_fav">
+						<%if @post.post_fav_by?(current_user)%>
+							<%= link_to lincoln_riders_post_post_favs_path(@post), class: "post_fav_deatroy", method: :delete, remote: true do %>
+								<i class="fa fa-heart" aria-hidden="true" style="color:red;"></i>
+							<%end%>
+						<%else%>
+							<%= link_to lincoln_riders_post_post_favs_path(@post), class: "post_fav_create", method: :post, remote: true do %>
+								<i class="fa fa-heart" aria-hidden="true"></i>
+							<%end%>
+						<%end%>
+					</div>
+					<div class="delete">
+						<%= link_to lincoln_riders_post_path(@post), method: :delete do%>delete<%end%>
+					</div>
+					<div class="edit">
+						<%= link_to edit_lincoln_riders_post_path(@post) do%>edit<%end%>
+					</div>
+
 				</h4>
 			</div>
 		</div>

@@ -1,0 +1,2 @@
+module Admins::MappedImagesHelper
+end

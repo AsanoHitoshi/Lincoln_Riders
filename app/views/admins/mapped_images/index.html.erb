@@ -1,0 +1,39 @@
+<div class="background clearfix">
+	<div class="admin_content clearfix">
+		<h3>投稿MappedImgae一覧</h3>
+		<table class="table table-striped">
+			<tr>
+				<td>ID</td>
+				<td>内容</td>
+				<td>画像</td>
+				<td>位置情報</td>
+				<td>ユーザー名</td>
+				<td>投稿日時</td>
+				<td></td>
+			</tr>
+			<%@mapped_images.each do |mapped_image|%>
+			<tr>
+				<td>
+					<%=link_to admins_mapped_image_path(mapped_image) do%>
+						<%=mapped_image.id%>
+					<%end%>
+				</td>
+				<td><%=mapped_image.text%></td>
+				<td><%= attachment_image_tag mapped_image, :image ,class: "admin_show_image"%></td>
+				<td><%=mapped_image.position_lat%><br><%=mapped_image.position_lng%></td>
+				<td><%=link_to admins_user_path(mapped_image.user) do%>
+						<%=mapped_image.user.name%>
+					<%end%>
+				</td>
+				<td><%=mapped_image.created_at.strftime('%Y/%m/%d %H:%M:%S')%></td>
+				<td><%=link_to "削除", admins_mapped_image_path(mapped_image.id), method: :delete %></td>
+			</tr>
+			<%end%>
+			<tr>
+			</tr>
+		</table>
+			<div class="paginate">
+		<%= paginate @mapped_images %>
+	</div>
+	</div>
+</div>

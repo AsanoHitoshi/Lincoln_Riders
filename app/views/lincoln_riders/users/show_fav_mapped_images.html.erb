@@ -1,0 +1,25 @@
+
+<div class="background clearfix">
+	<%= render 'layouts/sidebar',new_post: @new_post %>
+	<%= render 'layouts/user_page_bar',bike_path: lincoln_riders_user_show_mapped_images_path(@user),heart_path: lincoln_riders_user_show_fav_mapped_images_path(@user) %>
+	<div class="content clearfix">
+		<h2><%=@user.name%>'s Mapped Images</h2>
+		<div class="map">
+			<!-- 地図を表示させる要素 -->
+			<div class="map_box01" style="width: 100%;height: 350px;"><div id="map-canvas" style="width: 100%;height: 100%;"></div></div>
+			<form onsubmit="return false;">
+				<input type="text" id="address" value="大阪">
+				<button type="button" value="検索" id="map_button">検索</button>
+			</form>
+		</div>
+    	<%= render 'lincoln_riders/mapped_images/mapped_image_index',mapped_images: @fav_mapped_images %>
+	</div>
+
+</div>
+
+
+<script>
+
+  SetMap.ForRead();
+
+</script>

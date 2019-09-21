@@ -1,4 +1,5 @@
 class LincolnRiders::FollowRelationshipsController < ApplicationController
+	before_action :authenticate_user!
   def create
 	following = current_user.active_follow_relationships.new(followed_user_id: params[:user_id])
 	if following.save

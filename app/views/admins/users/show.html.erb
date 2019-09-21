@@ -1,0 +1,29 @@
+<div class="background clearfix">
+	<div class="admin_content clearfix">
+		<h3>登録ユーザー詳細</h3>
+		<table class="table table-striped">
+			<tr>
+				<td>ID</td>
+				<td><%=@user.id%></td>
+			</tr>
+			<tr>
+				<td>名前</td>
+				<td><%=@user.name%></td>
+			</tr>
+			<tr>
+				<td>メールアドレス</td>
+				<td><%=@user.email%></td>
+			</tr>
+			<td>自己紹介文</td><td><%=@user.introduction%></td>
+			<tr>
+				<td>登録日</td>
+				<td><%=@user.created_at.strftime('%Y/%m/%d')%></td>
+			</tr>
+			<tr>
+				<td colspan="2"><%=link_to "削除", admins_user_path(@user.id), method: :delete ,data: { confirm: "本当に削除しますか？" }%></td>
+			</tr>
+			<tr>
+			</tr>
+		</table>
+	</div>
+</div>

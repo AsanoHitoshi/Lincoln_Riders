@@ -1,7 +1,7 @@
 <div class="background clearfix">
 
   <%= render 'layouts/sidebar',new_post: @new_post %>
-  <div class=content>
+  <div class="content clearfix">
 
     <div class="map">
       <!-- 地図を表示させる要素 -->
@@ -9,7 +9,6 @@
       <form onsubmit="return false;">
         <input type="text" id="address" value="大阪">
         <button type="button" value="検索" id="map_button">検索</button>
-        <button type="button" value="検索" id="reload_map_pin_button">更新</button>
       </form>
     </div>
 
@@ -20,6 +19,6 @@
 
 <script>
 
-  GetMap.getAddress();
+  SetMap.ForRead();
 
 </script>
