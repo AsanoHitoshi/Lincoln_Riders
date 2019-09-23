@@ -2,7 +2,12 @@
 
 	<%= render 'layouts/sidebar',new_post: @new_post %>
 	<div class=content>
-		<h3>Post</h3>
+		<%if flash[:notice]%>
+			<div class="flash">
+				<%= flash[:notice] %>
+			</div>
+		<%end%>
+		<h3 class="page_title">Posts Index</h3>
 		<%= render 'lincoln_riders/posts/posts_index',posts: @posts %>
 		</div>
 	</div>

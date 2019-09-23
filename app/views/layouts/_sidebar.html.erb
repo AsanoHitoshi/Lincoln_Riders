@@ -3,45 +3,41 @@
 		<h3>User Info</h3>
 		<div class="user">
 			<div>
-			<%= attachment_image_tag current_user, :profile_image ,class: "user_profile_icon"%>
+				<%if current_user.profile_image == nil %>
+						<%= image_tag 'noimage.jpg' ,class: "user_profile_image"%>
+				<%else%>
+					<%= attachment_image_tag current_user, :profile_image ,class: "user_profile_image"%>
+				<%end%>
 		</div>
-			name<br><%= current_user.name%><br>
-			introduction<br><%= current_user.introduction%><br>
+			<span class="text_title">Name</span><br><span><%= current_user.name%></span><br>
+			<span class="text_title">Introduction</span><br><span><%= current_user.introduction%></span><br>
 		</div>
 		<div class="follow">
-			follow :<%= link_to following_users_index_lincoln_riders_user_path(current_user) do %><%=current_user.following_users.count%><%end%>
-			follower:<%= link_to followed_users_index_lincoln_riders_user_path(current_user) do %><%=current_user.followed_users.count%><%end%>
+			<span class="text_title">follow : </span><%= link_to following_users_index_lincoln_riders_user_path(current_user) do %><%=current_user.following_users.count%><%end%>
+			<span class="text_title">follower : </span><%= link_to followed_users_index_lincoln_riders_user_path(current_user) do %><%=current_user.followed_users.count%><%end%>
         </div>
         <div class="edit">
-			<%= link_to edit_user_registration_path(current_user) do%>
-			edit
+			<%= link_to edit_lincoln_riders_user_path(current_user) do%>
+				edit
 			<%end%>
         </div>
-	</div>
-	<div>
-		<h3>Show Page</h3>
-		<%= link_to lincoln_riders_user_mypage_posts_path do%>
-			<div>Post</div>
-		<%end%>
-		<%= link_to lincoln_riders_user_mypage_mapped_images_path do%>
-			<div>Mapped Image</div>
-		<%end%>
 	</div>
 
 	<div class="newpost">
 		<h3>New Post</h3>
 		<%= form_for(new_post,url: lincoln_riders_posts_path) do |f| %>
 			<%= f.label :内容%><br>
-			<%= f.text_area :text %><br>
+			<%= f.text_area :text ,id: "sidebar_text"%><br>
 			<%= f.label :image%><br>
 			<%= f.attachment_field :image %><br>
 
-			<%= f.submit "Create Book" ,class:"btn btn-default" %>
+			<%= f.submit "Create Book" ,class:"btn btn-default" ,name:"sidebar_commit"%>
 		<%end%>
 	</div>
 	<div class="newmappedimage">
+		<h3>New MappedImage</h3>
 		<%= link_to new_lincoln_riders_mapped_image_path do%>
-			<h3>New MappedImage</h3>
+			Create Mapped Image
 		<%end%>
 	</div>
 </div>

@@ -1,6 +1,11 @@
 <div class="background clearfix">
   <div class="content clearfix">
-    <h2>User Log in</h2>
+    <%if flash[:notice]%>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <%end%>
+    <h3 class="page_title">User Log in</h3>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">

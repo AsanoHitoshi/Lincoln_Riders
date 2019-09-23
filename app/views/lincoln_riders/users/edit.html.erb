@@ -1,5 +1,11 @@
 <div class="background clearfix">
 	<div class="content_field clearfix">
+		<%if flash[:notice]%>
+			<div class="flash">
+				<%= flash[:notice] %>
+			</div>
+		<%end%>
+		<h3 class="page_title">User Edit</h3>
 		<%= form_for(@user, url:lincoln_riders_user_path(@user)) do |f| %>
 			<div>
 				<%= f.label :name %><br>
@@ -16,7 +22,9 @@
 					<label class="control-label sr-only" for="user_profile_image">ProfileImage</label>
 					<%= f.attachment_field :profile_image, placeholder: "プロフィール画像", class: "user-edit-form" %>
 			</div>
+
 			<%= f.submit "変更を保存", class:"btn btn-lg btn-block btn-base-1 mt-20" %>
+
 	<% end %>
 	</div>
 </div>

@@ -61,56 +61,76 @@ $(function() {
 
 
 var SetMap = (function() {
+  var markers = new Array()
     function GetPresentLocation() {
-      function success(position) {
-        var lat  = position.coords.latitude;//緯度
-        var lng = position.coords.longitude;//経度
-        // 位置情報
-        var lat_lng = new google.maps.LatLng( lat , lng ) ;
-        console.log(lat_lng)
-        return lat_lng
-      };
-      function error() {
-        console.log("座標位置を取得できません")
-      };
-      navigator.geolocation.getCurrentPosition(success, error);
+      return new Promise((resolve, reject) => {
+        var lat_lng
+        function success(position) {
+          var lat_lng = {
+              lat: position.coords.latitude, // 緯度
+              lng: position.coords.longitude // 経度
+          };
+          console.log("座標位置を取得できました")
+          resolve(lat_lng)
+        };
+        function error() {
+          console.log("座標位置を取得できません")
+          reject()
+        };
+        navigator.geolocation.getCurrentPosition(success, error);
+      });
     }
     // 地図の初期設定
     function InitMap(map_canvas,mapped_image_position_lat,mapped_image_position_lng){ //map_canvas = id name of div showing map
-      var lat_lng = GetPositionFrom(mapped_image_position_lat, mapped_image_position_lng)
-      var mapOptions = {
-        center: lat_lng.lat_lng,
-        zoom: 16,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-      var map = new google.maps.Map(document.getElementById(map_canvas), mapOptions);
+      return new Promise((resolve, reject) => {
+        GetPositionFrom(mapped_image_position_lat, mapped_image_position_lng).then(function(lat_lng){
+        console.log(lat_lng)
+        var mapOptions = {
+          center: lat_lng,
+          zoom: 16,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById(map_canvas), mapOptions);
 
-      return{
-        map
-      }
+        resolve(map)
+      });
+    });
+
+
+
     };
 
     // ビューから緯度、経度を取得する
     function GetPositionFrom(mapped_image_position_lat,mapped_image_position_lng){
-      var lat_string = document.getElementById(mapped_image_position_lat).value;
-      var lng_string = document.getElementById(mapped_image_position_lng).value;
-
-      if (lat_string == "" || lng_string == ""){
-        console.log("位置情報が空欄です")
-        var lat_lng = GetPresentLocation()
-      } else{
-        var lat_lng = {
-          lat: Number(lat_string), // 緯度
-          lng: Number(lng_string) // 経度
-        };
-      }
-      return{
-        lat_lng
-      }
+      return new Promise((resolve, reject) => {
+          if ((document.getElementById(mapped_image_position_lat)!=null) && (document.getElementById(mapped_image_position_lng)!=null)){
+            var lat_string = document.getElementById(mapped_image_position_lat).value;
+            var lng_string = document.getElementById(mapped_image_position_lng).value;
+              if (lat_string == "" || lng_string == ""){
+                console.log("位置情報が空欄です")
+                GetPresentLocation().then(function(position){
+                  var lat_lng = {
+                    lat: position.lat, // 緯度
+                    lng: position.lng // 経度
+                  };
+                document.getElementById("mapped_image_position_lat").value = lat_lng.lat;
+                document.getElementById("mapped_image_position_lng").value = lat_lng.lng;
+                  resolve(lat_lng)
+                });
+              } else{
+                var lat_lng = {
+                  lat: Number(lat_string), // 緯度
+                  lng: Number(lng_string) // 経度
+                };
+                resolve(lat_lng)
+              }
+          }
+        });
     };
 
     // 検索機能
     function GetAddress(map) {
+      return new Promise((resolve, reject) => {
         var lat_lng
         var address = document.getElementById("address").value;
           // 取得した住所を引数に指定してcodeAddress()関数を実行
@@ -118,19 +138,20 @@ var SetMap = (function() {
         geocoder.geocode( { 'address': address}, function(results, status) {
         // ジオコーディングが成功した場合
         if (status == google.maps.GeocoderStatus.OK) {
-          document.getElementById("mapped_image_position_lat").value = results[0].geometry.location.lat();
-          document.getElementById("mapped_image_position_lng").value = results[0].geometry.location.lng();
+          if ((document.getElementById("mapped_image_position_lat")!=null) && (document.getElementById("mapped_image_position_lng")!=null)){
+            document.getElementById("mapped_image_position_lat").value = results[0].geometry.location.lat();
+            document.getElementById("mapped_image_position_lng").value = results[0].geometry.location.lng();
+          }
           console.log('Geocode was successful');
           lat_lng = results[0].geometry.location
+          resolve(lat_lng)
         // ジオコーディングが成功しなかった場合
         } else {
           console.log('Geocode was not successful for the following reason: ' + status);
+          reject()
         }
         });
-
-        return{
-         lat_lng
-        }
+      });
     }
 
 
@@ -142,48 +163,58 @@ var SetMap = (function() {
 
 
     // マーカーを移動させる
-    function MoveMarker(map, marker){
-        console.log("Start MoveMarker")
-        var lat_lng = GetPositionFrom("mapped_image_position_lat","mapped_image_position_lng")
-        if (marker == null){//markerがなければ無視する
+    function MoveMarker(map){
+        var lat_lng = GetPositionFrom("mapped_image_position_lat","mapped_image_position_lng").then(function(lat_lng){
 
-        }else{//markerがあれば残っているmarkerを隠す
-          marker.setMap(null);
-        }
-        marker = new google.maps.Marker({
-          map: map,
-          position: lat_lng.lat_lng
+          markers.forEach(function(marker){
+            if (marker == null){  //markerがなければ無視する
+
+            }else{  //markerがあれば残っているmarkerを隠す
+              marker.setMap(null);
+            }
+          });
+          var marker = new google.maps.Marker({
+            map: map,
+            position: lat_lng
+          });
+
+          markers.push(marker);
+          // 座標の中心をずらす
+          map.panTo(lat_lng);
+          console.log("marker")
+          console.log(marker)
+          return{
+            marker
+          }
         });
-        document.getElementById("mapped_image_position_lat").value = lat_lng.lat_lng.lat;
-        document.getElementById("mapped_image_position_lng").value = lat_lng.lat_lng.lng;
-        // 座標の中心をずらす
-        map.panTo(lat_lng.lat_lng);
-
-      return{
-        marker
-      }
     };
 
 
     // マーカーを設置する
-    function SetMarkers(map, marker){
+    function SetMarkers(map){
       var mapped_image_position_size = $(".mapped_image_position").length;
-      var mapped_image_positions = Array(mapped_image_position_size);
-      var mapped_image_positions_id = Array(mapped_image_positions.length);
-      var infoWindow = Array(mapped_image_positions.length);
-      var markers = Array(mapped_image_positions.length);
+      var mapped_image_positions = Array();
+      var mapped_image_positions_id = Array();
+      var infoWindows = Array();
+      var j = 0;
       for (var i = 0; i < mapped_image_position_size; i++) {
-        mapped_image_positions_id[i] = GetIdFrom("mapped_image_id_"+i)
-        mapped_image_positions[i] = GetPositionFrom("mapped_image_position_lat_"+i,"mapped_image_position_lng_"+i)
-        markers[i] = new google.maps.Marker({
-          map: map,
-          position: mapped_image_positions[i].lat_lng //results[0].geometry.location = (lat,lng)
+        console.log(i)
+        GetPositionFrom("mapped_image_position_lat_"+i,"mapped_image_position_lng_"+i).then(function(mapped_image_position){
+          var mapped_image_position_id = GetIdFrom("mapped_image_id_"+j);
+          mapped_image_positions_id.push(mapped_image_position_id);
+          var marker = new google.maps.Marker({
+            map: map,
+            position: mapped_image_position //results[0].geometry.location = (lat,lng)
+          });
+          markers.push(marker);
+          infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
+            content: "お待ちください"    // 吹き出しに表示する内容
+          });
+          infoWindows.push(infoWindow)
+          MarkerClickEvent(marker,mapped_image_position_id.id,infoWindow,map)
+          ImageClickEvent(j,mapped_image_position, map)
+          j ++;
         });
-        infoWindow[i] = new google.maps.InfoWindow({ // 吹き出しの追加
-          content: "お待ちください"    // 吹き出しに表示する内容
-        });
-        MarkerClickEvent(markers[i],mapped_image_positions_id[i].id,infoWindow[i],map)
-        ImageClickEvent(i,mapped_image_positions[i].lat_lng, map)
       }
 
     };
@@ -243,37 +274,40 @@ var SetMap = (function() {
 
       ForCreateUpdate: function() {
         var button = document.getElementById("map_button");
-        var map = InitMap("map-canvas","mapped_image_position_lat","mapped_image_position_lng");
-        var marker = MoveMarker(map.map,marker)
-        // ボタンが押された時の処理
-        $(document).on('click', '#map_button', function() {
-              $.when(
-                    GetAddress(map.map)
-              ).done(function(){
-                     marker = MoveMarker(map.map,marker.marker)
-              });
+        var map = InitMap("map-canvas","mapped_image_position_lat","mapped_image_position_lng").then(function(map){
+          MoveMarker(map)
+
+          // ボタンが押された時の処理
+          $(document).on('click', '#map_button', function() {
+             GetAddress(map).then(function(lat_lng){
+               MoveMarker(map)
+             });
+          });
+          map.addListener('click', function(e) {
+            getClickLatLng(e.latLng);
+            MoveMarker(map);
+          });
+          $('#mapped_image_position_lat').change(function() {
+            marker = MoveMarker(map);
+          });
+          $('#mapped_image_position_lng').change(function() {
+            marker = MoveMarker(map);
+          });
         });
-        map.map.addListener('click', function(e) {
-          getClickLatLng(e.latLng);
-          marker = MoveMarker(map.map,marker.marker);
-        });
-        $('#mapped_image_position_lat').change(function() {
-          marker = MoveMarker(map.map,marker.marker);
-        });
-        $('#mapped_image_position_lng').change(function() {
-          marker = MoveMarker(map.map,marker.marker);
-        });
+
       },
 
 
       ForRead: function() {
         var button = document.getElementById("map_button");
-        var map = InitMap("map-canvas","mapped_image_position_lat_0","mapped_image_position_lng_0");
-        var markers = SetMarkers(map.map,markers)
-        // ボタンが押された時の処理
-        $(document).on('click', '#map_button', function() {
-          var lat_lng = GetAddress(map.map)
-          map.map.panTo(lat_lng.lat_lng);
+        var map = InitMap("map-canvas","mapped_image_position_lat_0","mapped_image_position_lng_0").then(function(map){
+          SetMarkers(map)
+          // ボタンが押された時の処理
+          $(document).on('click', '#map_button', function() {
+            var lat_lng = GetAddress(map).then(function(lat_lng){
+              map.panTo(lat_lng);
+            });
+          });
         });
       }
 

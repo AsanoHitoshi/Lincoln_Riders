@@ -13,9 +13,14 @@
 		<%end%>
 	</div>
 	<div class="content clearfix">
+		<%if flash[:notice]%>
+			<div class="flash">
+				<%= flash[:notice] %>
+			</div>
+		<%end%>
 
 		<div class="posts_index">
-			<h2>Mypage Favorite Posts</h2>
+			<h3 class="page_title">Mypage Favorite Posts</h3>
 			<%= render 'lincoln_riders/posts/posts_index',posts: @fav_posts %>
 		</div>
 

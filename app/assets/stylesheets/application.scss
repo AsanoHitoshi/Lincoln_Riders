@@ -70,17 +70,35 @@ nav{
 	min-height: 700px;
 	width: 100%;
 	position: relative;
+	opacity: 0.95;
+
+}
+body{
+	background-image: url(background.jpg);
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-size:contain;
+}
+.background_color{
+	background-color: #496887;
+	background: linear-gradient(to bottom, #496887 50% , transparent);
 }
 .background{
-	background-color: lightgray;
 }
-
+.text_title{
+	font-weight: bold;
+}
+.page_title{
+	margin-bottom: 20px;
+	border-bottom: solid;
+	padding-bottom: 10px;
+}
 .content_field{
 	padding: 2%;
 	background-color: white;
 	width: 96%;
 	margin: 2%;
-	min-height: 700px;
+	min-height: 800px;
 }
 
 
@@ -94,6 +112,7 @@ nav{
 	right: 0;
 	bottom: 0;
 	left: 0;
+	opacity: 0.95;
 }
 
 .bar{
@@ -123,6 +142,8 @@ nav{
 	width: 70%;
 	margin: 2%;
 	min-height:700px;
+	opacity: 0.95;
+
 }
 .content_background{
 	background-color: lightgray;
@@ -135,6 +156,7 @@ footer{
 	background-color: black;
 	height: 79px;
 	width: 100%;
+	opacity: 0.95;
 }
 .footer_copyright{
 	font-family:fantasy;

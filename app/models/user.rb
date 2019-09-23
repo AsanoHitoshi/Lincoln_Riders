@@ -22,8 +22,8 @@ class User < ApplicationRecord
 	attachment :profile_image
 
 
-  def followed_by?(user)
-    passive_follow_relationships.find_by(following_user_id: user.id).present?
-  end
+	def followed_by?(user)
+		passive_follow_relationships.find_by(following_user_id: user.id).present?
+	end
 
 end

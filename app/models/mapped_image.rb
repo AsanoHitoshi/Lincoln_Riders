@@ -3,7 +3,7 @@ class MappedImage < ApplicationRecord
 	belongs_to :user
 	has_many :mapped_images_favs
 
-	validates :text, length: {maximum:819}
+	validates :text, length: {maximum:20}
 	validates :image, presence: true
 	validates :position_lat, presence: true
 	validates :position_lng, presence: true

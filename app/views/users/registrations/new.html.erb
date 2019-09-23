@@ -1,6 +1,11 @@
 <div class="background clearfix">
   <div class="content clearfix">
-    <h2>User Sign up</h2>
+    <%if flash[:notice]%>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <%end%>
+    <h3 class="page_title">User Sign up</h3>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>

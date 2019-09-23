@@ -8,9 +8,16 @@
 <div class="background clearfix">
   <%= render 'layouts/sidebar',new_post: @new_post %>
   <div class="content clearfix">
+    <%if flash[:notice]%>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <%end%>
+
       <div class="post_titile clearfix">
         <div class="post_user">
           <h4>
+            <%= attachment_image_tag @mapped_image.user, :profile_image ,class: "user_profile_icon"%>
             <%=@mapped_image.user.name%>
           </h4>
         </div>
@@ -39,23 +46,25 @@
   </div>
     <div class="links">
       <div id="mapped_images_fav">
-    <%if @mapped_image.mapped_images_fav_by?(current_user)%>
-      <%= link_to lincoln_riders_mapped_image_mapped_images_favs_path(@mapped_image), class: "mapped_images_fav_deatroy", method: :delete, remote: true do %>
-        <i class="fa fa-heart" aria-hidden="true" style="color:red;"></i>
-      <%end%>
-    <%else%>
-      <%= link_to lincoln_riders_mapped_image_mapped_images_favs_path(@mapped_image), class: "mapped_images_fav_create", method: :post, remote: true do %>
-        <i class="fa fa-heart" aria-hidden="true"></i>
-      <%end%>
-    <%end%>
-  </div>
-  <div class="delete">
-    <%= link_to lincoln_riders_mapped_image_path(@mapped_image.id), method: :delete do %>delete<%end%>
-  </div>
-  <div class="edit">
-    <%= link_to edit_lincoln_riders_mapped_image_path(@mapped_image.id) do %>edit<%end%>
-  </div>
-  </div>
+        <%if @mapped_image.mapped_images_fav_by?(current_user)%>
+          <%= link_to lincoln_riders_mapped_image_mapped_images_favs_path(@mapped_image), class: "mapped_images_fav_deatroy", method: :delete, remote: true do %>
+            <i class="fa fa-heart" aria-hidden="true" style="color:red;"></i>
+          <%end%>
+        <%else%>
+          <%= link_to lincoln_riders_mapped_image_mapped_images_favs_path(@mapped_image), class: "mapped_images_fav_create", method: :post, remote: true do %>
+            <i class="fa fa-heart" aria-hidden="true"></i>
+          <%end%>
+        <%end%>
+      </div>
+        <%if @mapped_image.user_id == current_user.id%>
+          <div class="delete">
+            <%= link_to lincoln_riders_mapped_image_path(@mapped_image.id), method: :delete do %>delete<%end%>
+          </div>
+          <div class="edit">
+            <%= link_to edit_lincoln_riders_mapped_image_path(@mapped_image.id) do %>edit<%end%>
+          </div>
+        <%end%>
+    </div>
 </div>
 
 

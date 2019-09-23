@@ -1,10 +1,10 @@
 class LincolnRiders::MappedImagesController < ApplicationController
 	before_action :authenticate_user!
 
-PER=6
+PER=9
 
 	def index
-		@mapped_images = MappedImage.all.order(id: "ASC").page(params[:page]).per(PER)
+		@mapped_images = MappedImage.all.order(id: "DESC").page(params[:page]).per(PER)
 		@new_post = Post.new
 	end
 

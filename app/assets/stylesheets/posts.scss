@@ -9,8 +9,11 @@
 
 .post_user{
 	float: left;
+	color: black;
 }
-
+.link_black{
+	color: black;
+}
 .post_date{
 	float: right;
 }
@@ -19,11 +22,13 @@
 	border: solid 1px;
 	padding: 10px;
 	width: 600px;
-	margin: 2px auto;
+	margin: 5px auto;
+	border-radius: 5px;
 }
 
 .post_text{
-	padding: 5px;
+	padding: 10px 10px 0px 10px;
+	color: black;
 }
 
 .post_images{

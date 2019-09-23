@@ -4,7 +4,11 @@
 			<div class="post_title clearfix">
 				<%= link_to lincoln_riders_user_path(post.user) do%>
 					<div class="post_user">
-						<%= attachment_image_tag post.user, :profile_image ,class: "user_profile_icon"%>
+						<%if post.user.profile_image == nil %>
+							<%= image_tag 'noimage.jpg' ,class: "user_profile_icon"%>
+						<%else%>
+							<%= attachment_image_tag post.user, :profile_image ,class: "user_profile_icon"%>
+						<%end%>
 						<%= post.user.name %>
 					</div>
 				<%end%>

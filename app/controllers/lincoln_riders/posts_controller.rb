@@ -4,17 +4,19 @@ class LincolnRiders::PostsController < ApplicationController
 PER = 10
 
 	def create
-		@post = Post.new(post_params)
-		@post.user_id = current_user.id
-		if @post.save
-			redirect_to lincoln_riders_post_path(@post.id)
+		post = Post.new(post_params)
+		post.user_id = current_user.id
+		if post.save
+			redirect_to lincoln_riders_post_path(post.id)
+			flash[:notice]="[Success] Post was created"
 		else
 			redirect_to new_user_session_path
+			flash[:notice]="[Error] Post was not created"
 		end
 	end
 	def index
 		@new_post =  Post.new
-		@posts = Post.all.order(id: "ASC").page(params[:page]).per(PER)
+		@posts = Post.all.order(id: "DESC").page(params[:page]).per(PER)
 	end
 	def show
 		@post = Post.find_by(id: params[:id])
@@ -23,23 +25,43 @@ PER = 10
 	end
 
 	def edit
-		@post = Post.find_by(params[:id])
-		@new_post =  Post.new
+		@post = Post.find_by(id: params[:id])
+		if @post.user_id == current_user.id
+			@new_post =  Post.new
+		else
+			flash[:notice]="[Error] You are not Post's user"
+			redirect_to lincoln_riders_post_path(@post.id)
+		end
 	end
 
 	def update
-		post = Post.find_by(params[:id])
-		if post.update(post_params)
-			redirect_to lincoln_riders_user_post_path(post.user_id,post.id)
+		post = Post.find_by(id: params[:id])
+		if post.user_id == current_user.id
+			if post.update(post_params)
+				flash[:notice]="[Success] Post was updated"
+				redirect_to lincoln_riders_post_path(post)
+			else
+				flash[:notice]="[Error] Post was not updated"
+				redirect_to edit_lincoln_riders_post_path(post)
+			end
 		else
-			redirect_to edit_lincoln_riders_user_post_path(post.user_id,post.id)
+			flash[:notice]="[Error] You are not Post's user"
+			redirect_to lincoln_riders_post_path(@post.id)
 		end
 	end
 	def destroy
-		post = Post.find_by(params[:id])
-		if post.destroy
-			redirect_to lincoln_riders_user_path(current_user.id)
+		post = Post.find_by(id: params[:id])
+		if post.user_id == current_user.id
+			if post.destroy
+				flash[:notice]="[Success] Post was destroied"
+				redirect_to lincoln_riders_user_path(current_user.id)
+			else
+				flash[:notice]="[Error] Post was not destroied"
+				redirect_to lincoln_riders_post_path(@post.id)
+			end
 		else
+			flash[:notice]="[Error] You are not Post's user"
+			redirect_to lincoln_riders_post_path(@post.id)
 		end
 	end
 
