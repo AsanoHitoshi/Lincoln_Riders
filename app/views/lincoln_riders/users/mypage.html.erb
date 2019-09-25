@@ -1,7 +1,12 @@
 <div class="background clearfix">
 	<%= render 'layouts/sidebar',new_post: @new_post %>
 	<div class="content clearfix">
-		<h2>My Page</h2>
+		<%if flash[:notice]%>
+			<div class="flash">
+				<%= flash[:notice] %>
+			</div>
+		<%end%>
+		<h3 class="page_title">My Page</h3>
 
 
 		<div class="posts_index">

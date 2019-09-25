@@ -2,6 +2,12 @@
 <div class="background clearfix">
   <%= render 'layouts/sidebar',new_post: @new_post %>
   <div class="content clearfix">
+    <%if flash[:notice]%>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <%end%>
+    <h3 class="page_title">New MappedImages</h3>
 
   <%= form_with(model: @mapped_image, url: lincoln_riders_mapped_images_path, local: true) do |form| %>
       <%= form.label :text %><br>
@@ -12,7 +18,7 @@
       <%= form.text_field :position_lat %>
       <%= form.text_field :position_lng %>
 
-      <%= form.submit  :class=>"btn btn-primary" %>
+      <%= form.submit  :class=>"btn btn-primary" ,id: "mapped_image_create_submit"%>
   <% end %>
     <p>住所や駅名、目印などで検索できます。</p>
     <form onsubmit="return false;">

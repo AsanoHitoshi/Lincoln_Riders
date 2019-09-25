@@ -2,23 +2,25 @@
 <div class="users">
 	<%if users.length != 0 %>
 		<% users.each do |user|%>
-			<div class="user">
-				<h4>
-					<%if user.profile_image == nil %>
-						<%= image_tag 'noimage.jpg' ,class: "user_profile_icon"%>
+			<%= link_to lincoln_riders_user_path(user) do%>
+				<div class="user">
+					<h4>
+						<%if user.profile_image == nil %>
+							<%= image_tag '/images/noimage.jpg' ,class: "user_profile_icon"%>
+						<%else%>
+							<%= attachment_image_tag user, :profile_image ,class: "user_profile_icon"%>
+						<%end%>
+						<%= user.name %>
+					</h4>
+
+					<%if user.introduction == nil %>
+						<p>文章がありません</p>
 					<%else%>
-						<%= attachment_image_tag user, :profile_image ,class: "user_profile_icon"%>
+						<p><%= user.introduction %></p>
 					<%end%>
-					<%= user.name %>
-				</h4>
 
-				<%if user.introduction == nil %>
-					<p>文章がありません</p>
-				<%else%>
-					<p><%= user.introduction %></p>
-				<%end%>
-
-			</div>
+				</div>
+			<%end%>
 		<%end%>
 	<%else%>
 		<h3>ユーザーがいません</h3>

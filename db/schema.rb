@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_18_080604) do
+ActiveRecord::Schema.define(version: 2019_09_23_111821) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 2019_09_18_080604) do
   create_table "mapped_images", force: :cascade do |t|
     t.text "text", null: false
     t.text "image_id"
-    t.string "position_lat"
-    t.string "position_lng"
+    t.float "position_lat"
+    t.float "position_lng"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

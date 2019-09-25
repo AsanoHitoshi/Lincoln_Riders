@@ -2,12 +2,16 @@
 	<%= render 'layouts/sidebar',new_post: @new_post %>
 	<%= render 'layouts/user_page_bar',bike_path: lincoln_riders_user_show_posts_path(@user),heart_path: lincoln_riders_user_show_fav_posts_path(@user) %>
 	<div class="content clearfix">
+		<%if flash[:notice]%>
+			<div class="flash">
+				<%= flash[:notice] %>
+			</div>
+		<%end%>
 
 		<div class="posts_index">
-			<h3><%=@user.name%>'s Post</h3>
+			<h3 class="page_title"><%=@user.name%>'s Favorite Post</h3>
 			<%= render 'lincoln_riders/posts/posts_index',posts: @posts %>
 		</div>
-
 
 	</div>
 

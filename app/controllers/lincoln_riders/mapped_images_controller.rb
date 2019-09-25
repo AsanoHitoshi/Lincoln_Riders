@@ -1,10 +1,10 @@
 class LincolnRiders::MappedImagesController < ApplicationController
 	before_action :authenticate_user!
 
-PER=6
+PER=9
 
 	def index
-		@mapped_images = MappedImage.all.order(id: "ASC").page(params[:page]).per(PER)
+		@mapped_images = MappedImage.all.order(id: "DESC").page(params[:page]).per(PER)
 		@new_post = Post.new
 	end
 
@@ -17,9 +17,11 @@ PER=6
 		mapped_image = MappedImage.new(mapped_image_params)
 		mapped_image.user_id = current_user.id
 		if mapped_image.save
+			flash[:notice]="[Success] MappedImage was created"
 			redirect_to lincoln_riders_mapped_image_path(mapped_image.id)
 		else
-			redirect_to new_lincoln_riders_user_mapped_image_path
+			flash[:notice]="[Error] MappedImage was not created"
+			redirect_to new_lincoln_riders_mapped_image_path
 		end
 	end
 
@@ -31,15 +33,36 @@ PER=6
 
 	def edit
 		@mapped_image = MappedImage.find_by(id: params[:id])
-		@new_post = Post.new
+		if @mapped_image.user_id == current_user.id
+			@new_post = Post.new
+		else
+			flash[:notice]="[Error] You are not MappedImage's user"
+			redirect_to lincoln_riders_mapped_image_path(@mapped_image.id)
+		end
+	end
+
+	def update
+		mapped_image = MappedImage.find_by(id: params[:id])
+		if mapped_image.user_id == current_user.id
+			if mapped_image.update(mapped_image_params)
+				flash[:notice]="[Success] MappedImage was updated"
+				redirect_to lincoln_riders_mapped_image_path(mapped_image.id)
+			else
+				flash[:notice]="[Error] MappedImage was not updated"
+				redirect_to edit_lincoln_riders_mapped_image_path(mapped_image.id)
+			end
+		else
+			flash[:notice]="[Error] You are not MappedImage's user"
+			redirect_to edit_lincoln_riders_mapped_image_path(mapped_image.id)
+		end
 	end
 
 	def destroy
 		mapped_image = MappedImage.find_by(id: params[:id])
 		if mapped_image.destroy
-			redirect_to lincoln_riders_user_mypage_mapped_images_path
+			redirect_to lincoln_riders_mypage_mapped_images_path
 		else
-			redirect_to new_lincoln_riders_user_mapped_image_path(mapped_image)
+			redirect_to new_lincoln_riders_mapped_image_path(mapped_image)
 		end
 	end
 

@@ -2,7 +2,12 @@
 
 	<%= render 'layouts/sidebar',new_post: @new_post %>
 	<div class=content>
-		<h2>Follow</h2>
+		<%if flash[:notice]%>
+			<div class="flash">
+				<%= flash[:notice] %>
+			</div>
+		<%end%>
+		<h3 class="page_title">Follow Index</h3>
 		<%= render 'lincoln_riders/users/users_index',users: @user.following_users %>
 	</div>
 </div>

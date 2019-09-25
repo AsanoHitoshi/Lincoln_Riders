@@ -2,8 +2,13 @@
 
 	<%= render 'layouts/sidebar',new_post: @new_post %>
 	<div class="content clearfix">
+		<%if flash[:notice]%>
+			<div class="flash">
+				<%= flash[:notice] %>
+			</div>
+		<%end%>
 		<div class="post">
-			<h3>Edit Post</h3>
+			<h3 class="page_title">Edit Post</h3>
 			<%= form_with(model: @post,url: lincoln_riders_post_path(@post)) do |f|%>
 				<%=f.label :内容%><br>
 				<%= f.text_area :text %><br>

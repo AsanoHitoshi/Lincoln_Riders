@@ -1,5 +1,10 @@
 <div class="background clearfix">
 	<div class="admin_content clearfix">
+		<%if flash[:notice]%>
+			<div class="flash">
+				<%= flash[:notice] %>
+			</div>
+		<%end%>
 		<h3>投稿MappedImgae一覧</h3>
 		<table class="table table-striped">
 			<tr>

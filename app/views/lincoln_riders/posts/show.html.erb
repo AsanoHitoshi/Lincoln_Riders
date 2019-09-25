@@ -2,12 +2,22 @@
 
 	<%= render 'layouts/sidebar',new_post: @new_post %>
 	<div class="content clearfix">
+		<%if flash[:notice]%>
+			<div class="flash">
+				<%= flash[:notice] %>
+			</div>
+		<%end%>
 		<div class="post_show">
 			<div class="post_titile clearfix">
 				<div class="post_user">
-					<h4>
-						<%=@user.name%>
-					</h4>
+					<h5>
+						<%if @post.user.profile_image == nil %>
+							<%= image_tag '/images/noimage.jpg' ,class: "user_profile_icon"%>
+						<%else%>
+							<%= attachment_image_tag @post.user, :profile_image ,class: "user_profile_icon"%>
+						<%end%>
+						<%=@post.user.name%>
+					</h5>
 				</div>
 				<div class="post_date">
 					<%=@post.created_at.strftime('%Y/%m/%d %H:%M:%S')%>
@@ -24,21 +34,23 @@
 				<h4>
 					<div id="post_fav">
 						<%if @post.post_fav_by?(current_user)%>
-							<%= link_to lincoln_riders_post_post_favs_path(@post), class: "post_fav_deatroy", method: :delete, remote: true do %>
+							<%= link_to lincoln_riders_post_post_favs_path(@post), class: "post_fav_deatroy",id: "post_fav_deatroy", method: :delete, remote: true do %>
 								<i class="fa fa-heart" aria-hidden="true" style="color:red;"></i>
 							<%end%>
 						<%else%>
-							<%= link_to lincoln_riders_post_post_favs_path(@post), class: "post_fav_create", method: :post, remote: true do %>
+							<%= link_to lincoln_riders_post_post_favs_path(@post), class: "post_fav_create",id: "post_fav_create", method: :post, remote: true do %>
 								<i class="fa fa-heart" aria-hidden="true"></i>
 							<%end%>
 						<%end%>
 					</div>
-					<div class="delete">
-						<%= link_to lincoln_riders_post_path(@post), method: :delete do%>delete<%end%>
-					</div>
-					<div class="edit">
-						<%= link_to edit_lincoln_riders_post_path(@post) do%>edit<%end%>
-					</div>
+					<%if @post.user_id == current_user.id%>
+						<div class="delete">
+							<%= link_to lincoln_riders_post_path(@post),id: "post_deatroy", method: :delete do%>delete<%end%>
+						</div>
+						<div class="edit">
+							<%= link_to edit_lincoln_riders_post_path(@post) do%>edit<%end%>
+						</div>
+					<%end%>
 
 				</h4>
 			</div>
