@@ -9,6 +9,10 @@ RSpec.feature "posts_controllerに関する", type: :feature do
     @my_post = @user1.posts.first
   end
   feature "ログインしていない状態で" do
+    before do
+      sign_out(@user1)
+    end
+
     feature "以下のページへアクセスした際のリダイレクト先の確認" do
       scenario "postの一覧ページ" do
         visit lincoln_riders_posts_path

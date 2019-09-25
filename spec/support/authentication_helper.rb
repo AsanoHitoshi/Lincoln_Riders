@@ -12,9 +12,9 @@ module AuthenticationHelper
     login_as(resource, scope: warden_scope(resource))
   end
 
-  # def sign_out(resource)
-  #   logout(warden_scope(resource))
-  # end
+  def sign_out(resource)
+    logout(warden_scope(resource))
+  end
 
   private
 

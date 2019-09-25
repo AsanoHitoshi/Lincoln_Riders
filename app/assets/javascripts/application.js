@@ -113,8 +113,16 @@ var SetMap = (function() {
                     lat: position.lat, // 緯度
                     lng: position.lng // 経度
                   };
-                document.getElementById("mapped_image_position_lat").value = lat_lng.lat;
-                document.getElementById("mapped_image_position_lng").value = lat_lng.lng;
+                  document.getElementById("mapped_image_position_lat").value = lat_lng.lat;
+                  document.getElementById("mapped_image_position_lng").value = lat_lng.lng;
+                  resolve(lat_lng)
+                }).catch(function(){
+                  var lat_lng = {
+                    lat: 0, // 緯度
+                    lng: 0 // 経度
+                  };
+                  document.getElementById("mapped_image_position_lat").value = lat_lng.lat;
+                  document.getElementById("mapped_image_position_lng").value = lat_lng.lng;
                   resolve(lat_lng)
                 });
               } else{

@@ -4,7 +4,7 @@
 		<div class="user">
 			<div>
 				<%if current_user.profile_image == nil %>
-						<%= image_tag 'noimage.jpg' ,class: "user_profile_image"%>
+						<%= image_tag '/images/noimage.jpg' ,class: "user_profile_image"%>
 				<%else%>
 					<%= attachment_image_tag current_user, :profile_image ,class: "user_profile_image"%>
 				<%end%>

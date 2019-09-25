@@ -94,14 +94,19 @@ LATEST_PER = 5
 
 	def edit
 		@user =User.find_by(id: params[:id])
-		if @user != current_user
+		if @user.id == current_user.id
+		else
 			redirect_to lincoln_riders_user_mypage_posts_path
 		end
 	end
 	def update
-		@user = User.find_by(id: params[:id])
-		if @user.update(user_params)
-			redirect_to lincoln_riders_user_mypage_posts_path
+		user = User.find_by(id: params[:id])
+		if user.id == current_user.id
+			if user.update(user_params)
+				redirect_to lincoln_riders_user_mypage_posts_path
+			else
+				redirect_to edit_lincoln_riders_user_path(current_user)
+			end
 		else
 			redirect_to edit_lincoln_riders_user_path(current_user)
 		end

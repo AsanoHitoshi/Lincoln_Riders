@@ -35,5 +35,10 @@ FactoryBot.define do
         create_list(:post, 3, user: user)
       end
     end
+    trait :create_with_mapped_images do
+      after(:create) do |user|
+        create_list(:mapped_image, 3, user: user)
+      end
+    end
   end
 end

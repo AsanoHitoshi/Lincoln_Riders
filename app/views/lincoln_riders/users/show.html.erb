@@ -12,7 +12,7 @@
 			<tr>
 				<td>
 					<%if @user.profile_image == nil %>
-						<%= image_tag 'noimage.jpg' ,class: "user_profile_image"%>
+						<%= image_tag '/images/noimage.jpg' ,class: "user_profile_image"%>
 					<%else%>
 						<%= attachment_image_tag @user, :profile_image ,class: "user_profile_image"%>
 					<%end%>
@@ -22,13 +22,17 @@
 						<span class="text_title">Name</span><br>
 						<%=@user.name%><br>
 						<span class="text_title">Introduction</span><br>
-						<%=@user.introduction%>
+						<%=@user.introduction%><br>
+						<span class="text_title">follow : </span><%= link_to following_users_index_lincoln_riders_user_path(@user) do %><%=current_user.following_users.count%><%end%>
+						<span class="text_title">follower : </span><%= link_to followed_users_index_lincoln_riders_user_path(@user) do %><%=current_user.followed_users.count%><%end%>
 					</span>
 				</td>
 				<%if @user == current_user %>
 				<%else%>
 					<td>
-						<br><br>
+						<br>
+						<br>
+						<br>
 						<%if current_user.followed_by?(@user)%>
 							<span>フォローされています</span>
 						<%else%>

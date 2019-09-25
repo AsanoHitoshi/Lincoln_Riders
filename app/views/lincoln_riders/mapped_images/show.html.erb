@@ -17,7 +17,11 @@
       <div class="post_titile clearfix">
         <div class="post_user">
           <h4>
-            <%= attachment_image_tag @mapped_image.user, :profile_image ,class: "user_profile_icon"%>
+            <%if @mapped_image.user.profile_image == nil %>
+              <%= image_tag '/images/noimage.jpg' ,class: "user_profile_icon"%>
+            <%else%>
+              <%= attachment_image_tag @mapped_image.user, :profile_image ,class: "user_profile_icon"%>
+            <%end%>
             <%=@mapped_image.user.name%>
           </h4>
         </div>

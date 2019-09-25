@@ -11,8 +11,12 @@
 			<div class="post_titile clearfix">
 				<div class="post_user">
 					<h5>
-						<%= attachment_image_tag @user, :profile_image ,class: "user_profile_icon"%>
-						<%=@user.name%>
+						<%if @post.user.profile_image == nil %>
+							<%= image_tag '/images/noimage.jpg' ,class: "user_profile_icon"%>
+						<%else%>
+							<%= attachment_image_tag @post.user, :profile_image ,class: "user_profile_icon"%>
+						<%end%>
+						<%=@post.user.name%>
 					</h5>
 				</div>
 				<div class="post_date">

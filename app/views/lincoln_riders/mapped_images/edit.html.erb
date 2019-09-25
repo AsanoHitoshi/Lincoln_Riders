@@ -9,7 +9,7 @@
     <%end%>
     <h3 class="page_title">MappedImages Edit</h3>
 
-    <%= form_with(model: @mapped_image, url: lincoln_riders_mapped_images_path(@mapped_image), local: true) do |form| %>
+    <%= form_with(model: @mapped_image, url: lincoln_riders_mapped_image_path(@mapped_image), local: true) do |form| %>
         <%= form.label :text %><br>
         <%= form.text_field :text %><br>
 
@@ -19,7 +19,7 @@
           <%= form.text_field :position_lat %>
           <%= form.text_field :position_lng %>
 
-        <%= form.submit  :class=>"btn btn-primary" %>
+        <%= form.submit  :class=>"btn btn-primary" ,id:"update_mapped_image_submit"%>
     <% end %>
       <p>住所や駅名、目印などで検索できます。</p>
       <form onsubmit="return false;">

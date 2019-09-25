@@ -74,7 +74,7 @@ nav{
 
 }
 body{
-	background-image: url(background.jpg);
+	background-image: url(/images/background.jpg);
 	background-repeat: no-repeat;
 	background-position: right bottom;
 	background-size:contain;
@@ -113,6 +113,9 @@ body{
 	bottom: 0;
 	left: 0;
 	opacity: 0.95;
+}
+.users-info .edit{
+	text-align: right;
 }
 
 .bar{

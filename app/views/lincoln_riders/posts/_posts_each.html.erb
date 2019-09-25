@@ -5,7 +5,7 @@
 				<%= link_to lincoln_riders_user_path(post.user) do%>
 					<div class="post_user">
 						<%if post.user.profile_image == nil %>
-							<%= image_tag 'noimage.jpg' ,class: "user_profile_icon"%>
+							<%= image_tag '/images/noimage.jpg' ,class: "user_profile_icon"%>
 						<%else%>
 							<%= attachment_image_tag post.user, :profile_image ,class: "user_profile_icon"%>
 						<%end%>
