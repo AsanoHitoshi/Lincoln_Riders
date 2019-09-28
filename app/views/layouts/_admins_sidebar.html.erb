@@ -1,0 +1,17 @@
+<div class="sidebar">
+	<div class="sidebar_links">
+		<h3>Links</h3>
+		<%= link_to admins_users_path do%>
+			<h4>Users</h4>
+		<%end%>
+		<%= link_to admins_posts_path do%>
+			<h4>Posts</h4>
+		<%end%>
+		<%= link_to admins_mapped_images_path do%>
+			<h4>MappedImages</h4>
+		<%end%>
+		<%= link_to destroy_admin_session_path, method: :delete do%>
+			<h4>Logout</h4>
+		<%end%>
+	</div>
+</div>

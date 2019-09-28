@@ -28,6 +28,13 @@
     text-align: left;
     width: 32%;
 }
+.mapped_image_text_info{
+	color: black;
+}
+
+.mapped_image_user{
+	color: black;
+}
 
 .mapped_images_index{
 	float: right;
@@ -59,4 +66,7 @@
 .infowindow .mapped_image_text{
 	float: right;
 	width: 50%;
+}
+.infowindow_title{
+	font-weight: 500;
 }

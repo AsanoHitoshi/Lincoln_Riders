@@ -5,16 +5,20 @@
 			<%= render 'lincoln_riders/mapped_images/mapped_image_position',mapped_image: mapped_image ,i:i%>
 			<%= attachment_image_tag mapped_image, :image ,class: "mapped_image_index mapped_image_index_#{i}" %>
 			<div class="mapped_image_info">
-				<%if mapped_image.user.profile_image == nil %>
-					<%= image_tag '/images/noimage.jpg' ,class: "user_profile_icon"%>
-				<%else%>
-					<%= attachment_image_tag mapped_image.user, :profile_image ,class: "user_profile_icon"%>
-				<%end%>
 				<%= link_to lincoln_riders_user_path(mapped_image.user_id) do%>
-					<%=mapped_image.user.name%><br>
+					<div class="mapped_image_user">
+						<%if mapped_image.user.profile_image == nil %>
+							<%= image_tag '/images/noimage.jpg' ,class: "user_profile_icon"%>
+						<%else%>
+							<%= attachment_image_tag mapped_image.user, :profile_image ,class: "user_profile_icon"%>
+						<%end%>
+						<%=mapped_image.user.name%><br>
+					</div>
 				<%end%>
 				<%= link_to lincoln_riders_mapped_image_path(mapped_image.id) do %>
-					<%= mapped_image.text %>
+					<div class="mapped_image_text_info">
+						<%= mapped_image.text %>
+					</div>
 				<% end %>
 			</div>
 		</div>
@@ -23,3 +27,5 @@
 <%else%>
 	<h3>投稿がありません</h3>
 <%end%>
+
+

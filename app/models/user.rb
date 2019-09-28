@@ -11,11 +11,11 @@ class User < ApplicationRecord
 	has_many :followed_users, through: :passive_follow_relationships, source: :following_user
 
 
-	has_many :posts
-	has_many :mapped_images
-	has_many :post_favs
+	has_many :posts, dependent: :destroy
+	has_many :mapped_images, dependent: :destroy
+	has_many :post_favs, dependent: :destroy
 	has_many :fav_posts, through: :post_favs, source: :post
-	has_many :mapped_images_favs
+	has_many :mapped_images_favs, dependent: :destroy
 	has_many :fav_mapped_images, through: :mapped_images_favs, source: :mapped_image
 
 

@@ -27,11 +27,11 @@
 		<h3>New Post</h3>
 		<%= form_for(new_post,url: lincoln_riders_posts_path) do |f| %>
 			<%= f.label :内容%><br>
-			<%= f.text_area :text ,id: "sidebar_text"%><br>
+			<%= f.text_area :text ,id: "sidebar_text", style: 'width:100%;'%><br>
 			<%= f.label :image%><br>
 			<%= f.attachment_field :image %><br>
 
-			<%= f.submit "Create Book" ,class:"btn btn-default" ,name:"sidebar_commit"%>
+			<%= f.submit "Create Post" ,class:"btn btn-default" ,name:"sidebar_commit"%>
 		<%end%>
 	</div>
 	<div class="newmappedimage">

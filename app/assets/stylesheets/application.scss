@@ -77,7 +77,7 @@ body{
 	background-image: url(/images/background.jpg);
 	background-repeat: no-repeat;
 	background-position: right bottom;
-	background-size:contain;
+	background-size: 100%;
 }
 .background_color{
 	background-color: #496887;
@@ -175,3 +175,14 @@ footer{
 .pagination{
 	text-align: center;
 }
+
+
+.admin_content{
+	padding: 2%;
+	background-color: white;
+	width: 96%;
+	margin: 2%;
+	min-height: 700px;
+}
+
+

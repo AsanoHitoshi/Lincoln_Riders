@@ -4,7 +4,7 @@ class Admins::MappedImagesController < ApplicationController
 PER=10
 
 	def index
-		@mapped_images = MappedImage.all.order(id: "ASC").page(params[:page]).per(PER)
+		@mapped_images = MappedImage.all.order(id: "DESC").page(params[:page]).per(PER)
 	end
 
 	def show

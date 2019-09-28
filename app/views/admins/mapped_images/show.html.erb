@@ -1,5 +1,6 @@
+<%= render 'layouts/admins_sidebar'%>
 <div class="background clearfix">
-	<div class="admin_content clearfix">
+	<div class="content clearfix">
 		<%if flash[:notice]%>
 			<div class="flash">
 				<%= flash[:notice] %>
@@ -40,7 +41,7 @@
 			</tr>
 		</table>
 		<div class="delete">
-			<%=link_to "削除", admins_mapped_image_path(@mapped_image.id), method: :delete %>
+			<%=link_to "削除", admins_mapped_image_path(@mapped_image.id), method: :delete, data: { confirm: '本当に削除しますか？' } %>
 		</div>
 	</div>
 </div>

@@ -21,7 +21,7 @@
 //= require_tree .
 
 $(function() {
-    $('.a').slick({
+    $('.slick_field').slick({
         dots: true,
     });
 });
@@ -265,9 +265,12 @@ var SetMap = (function() {
                 success: function(data) {
                   console.log("ajax成功");
                   infoWindow.setContent( '<div class="infowindow">'+
-                                            '<div class="mapped_image_text">'+data.text+'</div>'+
+                                            '<div class="mapped_image_text">'+
+                                              '<div class="infowindow_title">content<br></div>'+
+                                              data.text+
+                                            '</div>'+
                                             '<img class="attachment mapped_image image " src="'+data.image_id+'">'+
-                                            '</div>') ;
+                                          '</div>') ;
                   infoWindow.open(map, marker); // 吹き出しの表示
                 },
                 error: function(){

@@ -60,7 +60,7 @@ PER=9
 	def destroy
 		mapped_image = MappedImage.find_by(id: params[:id])
 		if mapped_image.destroy
-			redirect_to lincoln_riders_mypage_mapped_images_path
+			redirect_to lincoln_riders_user_mypage_mapped_images_path
 		else
 			redirect_to new_lincoln_riders_mapped_image_path(mapped_image)
 		end

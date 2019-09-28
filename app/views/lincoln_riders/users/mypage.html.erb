@@ -18,6 +18,7 @@
 					</div>
 				<%end%>
 			</div>
+		<div class="user_show_mapped_images clearfix">
 			<h3>Latest Mapped Images</h3>
 			<div class="map">
 				<!-- 地図を表示させる要素 -->
@@ -35,7 +36,12 @@
 					</div>
 				<%end%>
 			</div>
-
+		</div>
+		<div class="user_delete">
+			<%if @user == current_user %>
+				<%=link_to "退会する", lincoln_riders_user_path(@user.id), method: :delete ,data: { confirm: "本当に退会しますか？" }%>
+			<%end%>
+		</div>
 	</div>
 
 </div>

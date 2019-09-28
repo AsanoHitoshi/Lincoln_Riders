@@ -27,8 +27,7 @@
 						<span class="text_title">follower : </span><%= link_to followed_users_index_lincoln_riders_user_path(@user) do %><%=current_user.followed_users.count%><%end%>
 					</span>
 				</td>
-				<%if @user == current_user %>
-				<%else%>
+				<%if @user != current_user %>
 					<td>
 						<br>
 						<br>
@@ -56,21 +55,28 @@
 					</div>
 				<%end%>
 		</div>
-		<h3>Latest Mapped Images</h3>
-		<div class="map">
-			<!-- 地図を表示させる要素 -->
-			<div class="map_box01" style="width: 100%;height: 350px;"><div id="map-canvas" style="width: 100%;height: 100%;"></div></div>
-			<form onsubmit="return false;">
-				<input type="text" id="address" value="大阪">
-				<button type="button" value="検索" id="map_button">検索</button>
-			</form>
+		<div class="user_show_mapped_images clearfix">
+			<h3>Latest Mapped Images</h3>
+			<div class="map">
+				<!-- 地図を表示させる要素 -->
+				<div class="map_box01" style="width: 100%;height: 350px;"><div id="map-canvas" style="width: 100%;height: 100%;"></div></div>
+				<form onsubmit="return false;">
+					<input type="text" id="address" value="大阪">
+					<button type="button" value="検索" id="map_button">検索</button>
+				</form>
+			</div>
+			<div class="mapped_images_index">
+				<%= render 'lincoln_riders/mapped_images/mapped_images_each',mapped_images: @latest_mapped_images %>
+				<%= link_to lincoln_riders_user_show_mapped_images_path do%>
+					<div class="mypage_index_link">
+						<i class="fas fa-motorcycle bar_icon"></i>もっと見る
+					</div>
+				<%end%>
+			</div>
 		</div>
-		<div class="mapped_images_index">
-			<%= render 'lincoln_riders/mapped_images/mapped_images_each',mapped_images: @latest_mapped_images %>
-			<%= link_to lincoln_riders_user_show_mapped_images_path do%>
-				<div class="mypage_index_link">
-					<i class="fas fa-motorcycle bar_icon"></i>もっと見る
-				</div>
+		<div class="user_delete">
+			<%if @user == current_user %>
+				<%=link_to "退会する", lincoln_riders_user_path(@user.id), method: :delete ,data: { confirm: "本当に退会しますか？" }%>
 			<%end%>
 		</div>
 

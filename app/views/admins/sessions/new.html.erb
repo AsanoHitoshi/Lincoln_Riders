@@ -1,6 +1,20 @@
-<h2>Log in</h2>
+<div class="background clearfix">
+  <div class="content_field clearfix">
+    <%if flash[:notice]%>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <%end%>
+<h2>Admin Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="sample">
+        <span>
+          ログイン用<br>
+          Email:a@a<br>
+          password:hogehoge
+        </span>
+      </div>
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
@@ -11,16 +25,9 @@
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
-
   <div class="actions">
     <%= f.submit "Log in" %>
   </div>
 <% end %>
 
-<%= render "admins/shared/links" %>
+</div></div>

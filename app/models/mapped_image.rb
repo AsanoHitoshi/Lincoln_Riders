@@ -1,7 +1,7 @@
 class MappedImage < ApplicationRecord
 	attachment :image
 	belongs_to :user
-	has_many :mapped_images_favs
+	has_many :mapped_images_favs, dependent: :destroy
 
 	validates :text, length: {maximum:20}, presence: true
 	validates :image, presence: true
