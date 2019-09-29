@@ -1,18 +1,110 @@
 <div class="background clearfix">
-  <div class="content_field clearfix">
-		about.html.erb
-		利用者側
-			ユーザーCRUD
-				ログイン機能について
-
-			ポストCRUD
-
-			マップイメージCURD
-
-			フォロー機能
-
-			ファボ
-
-		管理者側
-  </div>
+	<div class="content_field clearfix">
+		<%if flash[:notice]%>
+			<div class="flash">
+				<%= flash[:notice] %>
+			</div>
+		<%end%>
+		<h3 class="page_title">About Site</h3>
+		<h3>利用者側</h3>
+		<div class="about_content">
+			<h3>User</h3>
+					<h4>新規登録</h4>
+						<span>メールとパスワードで登録が可能（Gem deviseを使用）<br></span>
+	    				<%= image_tag '/images/signup.png', class: 'about_item_2' %><br>
+						<span>
+							① ‘Singup’をクリック<br>
+							② 登録するメールアドレス、パスワードを入力<br>
+							③ ’Singup’をクリック<br>
+						</span>
+					<h4>ログイン</h4>
+						<span>メールとパスワードでログインが可能（Gem deviseを使用）<br></span>
+	    				<%= image_tag '/images/login.png', class: 'about_item_2' %><br>
+						<span>
+							① ‘Login’をクリック<br>
+							② 登録したメールアドレス、パスワードを入力<br>
+							③ ’Login’をクリック<br>
+						</span>
+		</div>
+		<div class="about_content">
+			<h3>Posts</h3>
+				<h4>新規投稿</h4>
+					<%= image_tag '/images/PostCreate.png', class: 'about_item_2' %><br>
+				<span>
+					① New Postの欄に投稿したい内容を入力、画像を投稿したい場合は画像をアップロード<br>
+					② ‘Create Post’をクリック<br>
+					③ ページ上部にサクセスメッセージが表示されたPost詳細画面が表示されれば成功です<br>
+				</span>
+		</div>
+		<div class="about_content">
+			<h3>MappedImages</h3>
+				<h4>新規投稿</h4>
+    				<%= image_tag '/images/MappedImagesCreate.png', class: 'about_item_2' %><br>
+				<span>
+					① ‘Create Mapped Image’をクリックして、投稿画面にアクセス<br>
+					② テキスト入力し、画像をアップロードする<br>
+					③ 下のマップのピンをアップロードした画像を撮影した場所にピンを置く<br>
+					④ ’Create Mapped Image’ボタンをクリック<br>
+					⑤ ページ上部にサクセスメッセージが表示されたMapped Imagesの詳細画面が表示されれば成功です<br>
+				</span>
+				<h4>クリックで移動</h4>
+    				<%= image_tag '/images/MappedImagesClick.png', class: 'about_item_2' %><br>
+				<span>
+					① Mapped Images一覧画面で画像をクリック<br>
+					② クリックした画像の位置情報が表示されます<br>
+				</span>
+				<h4>位置検索</h4>
+    				<%= image_tag '/images/MappedImagesSearch.png', class: 'about_item_2' %><br>
+				<span>
+					① マップ下の検索バーに地点を入力する<br>
+					② 検索ボタンをクリック<br>
+					③ 検索でヒットした地点が表示されます<br>
+				</span>
+		</div>
+		<div class="about_content">
+			<h3>Favorites</h3>
+				<h4>いいねする方法</h4>
+    				<%= image_tag '/images/Favorites_post_show.png', class: 'about_item_1' %><br>
+				<span>
+					Post詳細画面でハートマークをクリック<br>
+				</span>
+				<h4>いいね一覧</h4>
+    				<%= image_tag '/images/favorites_post_index.png', class: 'about_item_1' %><br>
+				<span>
+					いいねしたPostはMypageで確認できます<br>
+				</span>
+		</div>
+		<div class="about_content">
+			<h3>Follow</h3>
+				<h4>フォローする</h4>
+    				<%= image_tag '/images/follow.png', class: 'about_item_1' %><br>
+				<span>
+					Userの詳細ページでフォローをするをクリックする<br>
+				</span>
+				<h4>フォローUser一覧</h4>
+    				<%= image_tag '/images/follow_index.png', class: 'about_item_1' %><br>
+				<span>
+					サイドバーのFollowをクリックするとフォローしているUserの一覧が確認できます<br>
+				</span>
+				<h4>Mypage</h4>
+    				<%= image_tag '/images/mypage.png', class: 'about_item_1' %><br>
+				<span>
+					MypageでフォローしたUserの投稿を見ることができます<br>
+				</span>
+		</div>
+		<h3>管理者側</h3>
+		URL(<%=link_to admins_root_path do%>/admins<%end%>)からアクセスできます
+			<h3>Users</h3>
+				<%= image_tag '/images/admins_users.png', class: 'about_item_1' %><br>
+			<h3>Posts</h3>
+				<%= image_tag '/images/admins_post.png', class: 'about_item_1' %><br>
+			<h3>MappedImages</h3>
+				<%= image_tag '/images/admins_mapped_images.png', class: 'about_item_1' %><br>
+	</div>
 </div>
+
+<style>
+	.background_color{
+		background: linear-gradient(to bottom, #496887 90% , transparent);
+	}
+</style>

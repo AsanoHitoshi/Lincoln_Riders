@@ -103,14 +103,28 @@ LATEST_PER = 5
 		user = User.find_by(id: params[:id])
 		if user.id == current_user.id
 			if user.update(user_params)
-				redirect_to lincoln_riders_user_mypage_posts_path
+				redirect_to lincoln_riders_user_mypage_path
 			else
 				redirect_to edit_lincoln_riders_user_path(current_user)
 			end
 		else
 			redirect_to edit_lincoln_riders_user_path(current_user)
 		end
+	end
 
+	def destroy
+		@user = User.find_by(id: params[:id])
+		if current_user.id == @user.id
+			if @user.destroy
+				redirect_to lincoln_riders_root_path
+				flash[:notice]="[Success] User's info were Deleted"
+			else
+				redirect_to admins_user_path(@user)
+				flash[:notice]="[Error] User's info were not Deleted"
+			end
+		else
+			flash[:notice]="[Error] You are not this User"
+		end
 	end
 
 	private

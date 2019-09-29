@@ -1,0 +1,29 @@
+<%= render 'layouts/admins_sidebar'%>
+	<%if flash[:notice]%>
+		<div class="flash">
+	<%= flash[:notice] %>
+		</div>
+	<%end%>
+
+<div class="background clearfix">
+
+	<div class="content clearfix">
+		<%if flash[:notice]%>
+			<div class="flash">
+		<%= flash[:notice] %>
+			</div>
+		<%end%>
+		<h3 class="page_title">Admins TOP</h3>
+		<div class="links_field">
+			<%= link_to admins_users_path do%>
+				<h3>Users一覧</h3>
+			<%end%>
+			<%= link_to admins_posts_path do%>
+				<h3>Posts一覧</h3>
+			<%end%>
+			<%= link_to admins_mapped_images_path do%>
+				<h3>MappedImages一覧</h3>
+			<%end%>
+		</div>
+	</div>
+</div>

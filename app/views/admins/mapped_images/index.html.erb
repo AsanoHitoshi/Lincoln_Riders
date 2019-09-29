@@ -1,5 +1,6 @@
+<%= render 'layouts/admins_sidebar'%>
 <div class="background clearfix">
-	<div class="admin_content clearfix">
+	<div class="content clearfix">
 		<%if flash[:notice]%>
 			<div class="flash">
 				<%= flash[:notice] %>
@@ -26,12 +27,13 @@
 				<td><%=mapped_image.text%></td>
 				<td><%= attachment_image_tag mapped_image, :image ,class: "admin_show_image"%></td>
 				<td><%=mapped_image.position_lat%><br><%=mapped_image.position_lng%></td>
-				<td><%=link_to admins_user_path(mapped_image.user) do%>
+				<td>
+					<%=link_to admins_user_path(mapped_image.user.id) do%>
 						<%=mapped_image.user.name%>
 					<%end%>
 				</td>
 				<td><%=mapped_image.created_at.strftime('%Y/%m/%d %H:%M:%S')%></td>
-				<td><%=link_to "削除", admins_mapped_image_path(mapped_image.id), method: :delete %></td>
+				<td><%=link_to "削除", admins_mapped_image_path(mapped_image.id), method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
 			</tr>
 			<%end%>
 			<tr>

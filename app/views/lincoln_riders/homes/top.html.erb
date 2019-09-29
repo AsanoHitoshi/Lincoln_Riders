@@ -1,7 +1,7 @@
-<div class="a">
-    <div class="b"><%= image_tag '/images/top_image_2.jpg', class: 'c' %></div>
-    <div class="b"><%= image_tag '/images/top_image_1.jpg', class: 'c' %></div>
-    <div class="b"><%= image_tag '/images/top_image_3.jpg', class: 'c' %></div>
+<div class="slick_field">
+    <div class="slide"><%= image_tag '/images/top_image_1.jpg', class: 'slide_item' %></div>
+    <div class="slide"><%= image_tag '/images/top_image_2.jpg', class: 'slide_item' %></div>
+    <div class="slide"><%= image_tag '/images/top_image_3.jpg', class: 'slide_item' %></div>
 </div>
 	<div class="top_content">
 		<%if flash[:notice]%>
@@ -26,13 +26,16 @@
 
 	<div>
 		<div>
+			<span class="link_title">サイトの使用方法はこちらから</span>
+			<span class="link"><%= link_to lincoln_riders_about_path do%>About<%end%></span>
+		</div>
+		<div>
 			<span class="link_title">登録はこちらから</span>
-			<span class="link"><%= link_to new_user_registration_path do%>signup<%end%></span>
+			<span class="link"><%= link_to new_user_registration_path do%>Signup<%end%></span>
 		</div>
 		<div>
 			<span class="link_title">ログインはこちらから</span>
-			<span class="link"><%= link_to new_user_session_path do%>login<%end%></span>
+			<span class="link"><%= link_to new_user_session_path do%>Login<%end%></span>
 		</div>
 	</div>
-	<div>About me</div>
 </div>

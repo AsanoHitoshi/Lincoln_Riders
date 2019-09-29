@@ -62,7 +62,7 @@
       </div>
         <%if @mapped_image.user_id == current_user.id%>
           <div class="delete">
-            <%= link_to lincoln_riders_mapped_image_path(@mapped_image.id), method: :delete do %>delete<%end%>
+            <%= link_to lincoln_riders_mapped_image_path(@mapped_image.id), method: :delete, data: { confirm: '本当に削除しますか？' } do %>delete<%end%>
           </div>
           <div class="edit">
             <%= link_to edit_lincoln_riders_mapped_image_path(@mapped_image.id) do %>edit<%end%>

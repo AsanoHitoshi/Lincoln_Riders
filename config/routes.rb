@@ -21,11 +21,10 @@ Rails.application.routes.draw do
 		get 'users/:id/posts/favs' => 'users#show_fav_posts',as: 'user_show_fav_posts'
 		get 'users/:id/mapped_images' => 'users#show_mapped_images',as: 'user_show_mapped_images'
 		get 'users/:id/mapped_images/favs' => 'users#show_fav_mapped_images',as: 'user_show_fav_mapped_images'
-		resources :users, only: [:edit,:update,:update,:show] do
+		resources :users, only: [:edit,:update,:update,:show,:destroy] do
 			resource :follow_relationships, only: [:create, :destroy]
 			get :following_users_index, on: :member
 			get :followed_users_index, on: :member
-
 		end
 
 		resources :posts, only: [:index,:create,:show,:edit,:destroy,:update] do
@@ -44,9 +43,9 @@ Rails.application.routes.draw do
 	devise_for :admins, controllers: {
 		sessions:      'admins/sessions',
 		passwords:     'admins/passwords',
-		registrations: 'admins/registrations'
 	}
 	namespace :admins do
+		root 'home#top'
 		resources :users, only: [:index, :show, :destroy]
 		resources :posts, only: [:index, :show, :destroy]
 		resources :mapped_images, only: [:index, :show, :destroy]

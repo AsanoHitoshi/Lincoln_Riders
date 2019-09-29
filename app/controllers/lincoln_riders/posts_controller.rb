@@ -54,7 +54,7 @@ PER = 10
 		if post.user_id == current_user.id
 			if post.destroy
 				flash[:notice]="[Success] Post was destroied"
-				redirect_to lincoln_riders_user_path(current_user.id)
+				redirect_to lincoln_riders_user_path(post.user_id)
 			else
 				flash[:notice]="[Error] Post was not destroied"
 				redirect_to lincoln_riders_post_path(@post.id)

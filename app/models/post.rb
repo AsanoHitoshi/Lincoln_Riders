@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
 	attachment :image
 	belongs_to :user
-	has_many :post_favs
+	has_many :post_favs, dependent: :destroy
 
 	validates :text, length: {maximum:819}
 	validates :text, presence: true
