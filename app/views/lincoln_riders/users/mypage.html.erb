@@ -8,7 +8,32 @@
 		<%end%>
 		<h3 class="page_title">My Page</h3>
 
+		<div class="mypage_create_field">
+			<div >
+				<%if current_user.profile_image == nil %>
+					<%= image_tag '/images/noimage.jpg' ,class: "user_profile_icon"%>
+				<%else%>
+					<%= attachment_image_tag current_user, :profile_image ,class: "user_profile_icon"%>
+				<%end%>
+			</div>
+			<div>
+				<h3>New Post</h3>
+				<%= form_for(@new_post,url: lincoln_riders_posts_path) do |f| %>
+					<%= f.label :内容%><br>
+					<%= f.text_area :text ,id: "sidebar_text", style: 'width:100%;'%><br>
+					<%= f.label :image%><br>
+					<%= f.attachment_field :image %><br>
 
+					<%= f.submit "Create Post" ,class:"btn btn-default" ,name:"sidebar_commit"%>
+				<%end%>
+			</div>
+			<div>
+				<h3>New MappedImage</h3>
+				<%= link_to new_lincoln_riders_mapped_image_path do%>
+					Create Mapped Image
+				<%end%>
+			</div>
+		</div>
 		<div class="posts_index">
 			<h3>Latest Posts</h3>
 				<%= render 'lincoln_riders/posts/posts_each',posts: @latest_posts %>

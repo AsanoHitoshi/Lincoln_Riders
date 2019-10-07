@@ -4,6 +4,7 @@
       <title>LincolnRiders</title>
       <%= csrf_meta_tags %>
       <%= csp_meta_tag %>
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
       <script src="https://kit.fontawesome.com/6b90a1f084.js"></script>
       <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -16,40 +17,44 @@
 
     <body>
       <div class="background_color">
-      <header>
-        <nav>
-          <div class="nav_left">
-            <h1 class="header_title">Lincoln Riders</h1>
-          </div>
-          <div class="nav_right">
-            <ul>
-              <%if user_signed_in?%>
-                <li class="nav_item"><%= link_to destroy_user_session_path, method: :delete do %>logout<% end %></li>
-                <li class="nav_item"><%= link_to lincoln_riders_user_mypage_path do%><%=current_user.name%><%end%></li>
-                <li class="nav_item"><%= link_to lincoln_riders_about_path do%>about<%end%></li>
-                <li class="nav_item"><%= link_to lincoln_riders_root_path do%>top<%end%></li>
-              <%else%>
-                <li class="nav_item"><%= link_to new_user_session_path do%>login<%end%></li>
-                <li class="nav_item"><%= link_to new_user_registration_path do%>signup<%end%></li>
-                <li class="nav_item"><%= link_to lincoln_riders_about_path do%>about<%end%></li>
-                <li class="nav_item"><%= link_to lincoln_riders_root_path do%>top<%end%></li>
+        <header>
+          <div class="nav_content clearfix">
+            <div class="nav_left">
+              <%= link_to lincoln_riders_root_path do%>
+                <h2 class="header_title">Lincoln Riders</h2>
               <%end%>
-            </ul>
-            <ul>
-              <li class="nav_item"><%= link_to lincoln_riders_mapped_images_path do%>mapped image<%end%></li>
-              <li class="nav_item"><%= link_to  lincoln_riders_posts_path do%>post<%end%></li>
-            </ul>
+            </div>
+            <div class="nav_right">
+              <div>
+                <i class="fas fa-bars menu_icon" id="menu_icon_open"></i>
+                <i class="fas fa-times menu_icon" id="menu_icon_close"></i>
+              </div>
+            </div>
           </div>
-      </nav>
-      </header>
-      <div class="main">
-        <%= yield %>
-      </div>
-      <footer>
-        <div class="footer-text-field">
-          <p class="footer_copyright">©︎　Lincoln Riders</p>
+          <div class="menu_bar">
+              <%if user_signed_in?%>
+                  <%= link_to destroy_user_session_path, method: :delete do %><li class="nav_item">logout</li><% end %>
+                  <%= link_to lincoln_riders_user_mypage_path do%><li class="nav_item"><%=current_user.name%></li><%end%>
+                  <%= link_to lincoln_riders_about_path do%><li class="nav_item">about</li><%end%>
+                  <%= link_to lincoln_riders_root_path do%><li class="nav_item">top</li><%end%>
+                  <%= link_to lincoln_riders_mapped_images_path do%><li class="nav_item">mapped image</li><%end%>
+                  <%= link_to  lincoln_riders_posts_path do%><li class="nav_item">post</li><%end%>
+              <%else%>
+                  <%= link_to new_user_session_path do%><li class="nav_item">login</li><%end%>
+                  <%= link_to new_user_registration_path do%><li class="nav_item">signup</li><%end%>
+                  <%= link_to lincoln_riders_about_path do%><li class="nav_item">about</li><%end%>
+                  <%= link_to lincoln_riders_root_path do%><li class="nav_item">top</li><%end%>
+              <%end%>
+          </div>
+        </header>
+        <div class="main">
+          <%= yield %>
         </div>
-      </footer>
-    </div>
+        <footer>
+          <div class="footer-text-field">
+            <p class="footer_copyright">©︎　Lincoln Riders</p>
+          </div>
+        </footer>
+      </div>
     </body>
 </html>

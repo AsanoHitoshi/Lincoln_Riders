@@ -206,7 +206,6 @@ var SetMap = (function() {
       var infoWindows = Array();
       var j = 0;
       for (var i = 0; i < mapped_image_position_size; i++) {
-        console.log(i)
         GetPositionFrom("mapped_image_position_lat_"+i,"mapped_image_position_lng_"+i).then(function(mapped_image_position){
           var mapped_image_position_id = GetIdFrom("mapped_image_id_"+j);
           mapped_image_positions_id.push(mapped_image_position_id);
@@ -326,5 +325,41 @@ var SetMap = (function() {
     };
   })();
 
+$(function() {
 
+  function MenuBarOpen(){
+    $(".menu_bar").css({
+        "display": "block",
+    });
+    $("#menu_icon_open").css({
+        "display": "none",
+    });
+    $("#menu_icon_close").css({
+        "display": "block",
+    });
+  };
+  function MenuBarClose(){
+    $(".menu_bar").css({
+        "display": "none",
+    });
+    $("#menu_icon_open").css({
+        "display": "block",
+    });
+    $("#menu_icon_close").css({
+        "display": "none",
+    });
+  };
+
+  $(document).on('mouseover', '#menu_icon_open', function() {
+    MenuBarOpen();
+  });
+  $(document).on('mouseover', '.menu_bar', function() {
+    MenuBarOpen();
+  });
+
+  $(document).on('mouseout', '.menu_bar', function() {
+    MenuBarClose();
+  });
+
+});
 
