@@ -27,8 +27,9 @@ Rails.application.routes.draw do
 			get :followed_users_index, on: :member
 		end
 
-		resources :posts, only: [:index,:create,:show,:edit,:destroy,:update] do
+		resources :posts, only: [:new,:index,:create,:show,:edit,:destroy,:update] do
 			resource :post_favs, only: [:create, :destroy]
+			resource :reply_relationships, only: [:create, :new]
 		end
 
 		get 'mapped_images' => 'mapped_images#index', as: 'mapped_images'

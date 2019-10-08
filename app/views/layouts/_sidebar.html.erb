@@ -29,7 +29,7 @@
 			<%= f.label :内容%><br>
 			<%= f.text_area :text ,id: "sidebar_text", style: 'width:100%;'%><br>
 			<%= f.label :image%><br>
-			<%= f.attachment_field :image %><br>
+			<%= f.attachment_field :image ,id: "sidebar_post_image" %><br>
 
 			<%= f.submit "Create Post" ,class:"btn btn-default" ,name:"sidebar_commit"%>
 		<%end%>

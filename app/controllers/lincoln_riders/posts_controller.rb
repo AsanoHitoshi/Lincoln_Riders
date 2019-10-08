@@ -2,6 +2,9 @@ class LincolnRiders::PostsController < ApplicationController
 	before_action :authenticate_user!
 
 PER = 10
+	def new
+		@new_post = Post.new
+	end
 
 	def create
 		post = Post.new(post_params)
@@ -10,7 +13,7 @@ PER = 10
 			redirect_to lincoln_riders_post_path(post.id)
 			flash[:notice]="[Success] Post was created"
 		else
-			redirect_to new_user_session_path
+			redirect_to lincoln_riders_user_mypage_path
 			flash[:notice]="[Error] Post was not created"
 		end
 	end

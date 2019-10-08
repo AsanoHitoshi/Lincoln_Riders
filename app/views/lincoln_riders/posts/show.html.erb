@@ -7,52 +7,19 @@
 				<%= flash[:notice] %>
 			</div>
 		<%end%>
-		<div class="post_show">
-			<div class="post_titile clearfix">
-				<div class="post_user">
-					<h5>
-						<%if @post.user.profile_image == nil %>
-							<%= image_tag '/images/noimage.jpg' ,class: "user_profile_icon"%>
-						<%else%>
-							<%= attachment_image_tag @post.user, :profile_image ,class: "user_profile_icon"%>
-						<%end%>
-						<%=@post.user.name%>
-					</h5>
-				</div>
-				<div class="post_date">
-					<%=@post.created_at.strftime('%Y/%m/%d %H:%M:%S')%>
-				</div>
+		<div>
+			<div class="reply_post">
+				<%@post.replying_posts.each do |replying_post|%>
+					<%= render 'lincoln_riders/posts/post_show',post: replying_post %>
+				<%end%>
 			</div>
-			<div>
-				<h3>
-					<%=@post.text%>
-				</h3>
-				<div class="images_post_show">
-					<%= attachment_image_tag @post, :image ,class: "show_post_image"%>
-				</div>
-			<div class="links">
-				<h4>
-					<div id="post_fav">
-						<%if @post.post_fav_by?(current_user)%>
-							<%= link_to lincoln_riders_post_post_favs_path(@post), class: "post_fav_deatroy",id: "post_fav_deatroy", method: :delete, remote: true do %>
-								<i class="fa fa-heart" aria-hidden="true" style="color:red;"></i>
-							<%end%>
-						<%else%>
-							<%= link_to lincoln_riders_post_post_favs_path(@post), class: "post_fav_create",id: "post_fav_create", method: :post, remote: true do %>
-								<i class="fa fa-heart" aria-hidden="true"></i>
-							<%end%>
-						<%end%>
-					</div>
-					<%if @post.user_id == current_user.id%>
-						<div class="delete">
-							<%= link_to lincoln_riders_post_path(@post),id: "post_deatroy", method: :delete do%>delete<%end%>
-						</div>
-						<div class="edit">
-							<%= link_to edit_lincoln_riders_post_path(@post) do%>edit<%end%>
-						</div>
-					<%end%>
 
-				</h4>
+			<%= render 'lincoln_riders/posts/post_show',post: @post %>
+
+			<div class="reply_post">
+				<%@post.replied_posts.each do |replied_post|%>
+					<%= render 'lincoln_riders/posts/post_show',post: replied_post %>
+				<%end%>
 			</div>
 		</div>
 	</div>
