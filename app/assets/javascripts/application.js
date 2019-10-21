@@ -28,33 +28,32 @@ $(function() {
 
 
 $(function() {
-  $(document).on('click', '#post_fav a', function() {
+  $(document).on('click', '.post_fav a', function() {
     if ($('a').val() == '') {
       return false;
     }
   });
-  $(document).on('ajax:success', '#post_fav a', function(e) {
-    console.log(e.detail[0][0]);
+  $(document).on('ajax:success', '.post_fav a', function(e) {
     if (e.detail[0][0].done == "save"){
-        var post_fav = document.getElementById('post_fav')
+        var post_fav = document.getElementById('post_fav_'+e.detail[0][0].post_id)
         post_fav.innerHTML = '<a class="post_fav_deatroy" data-remote="true" rel="nofollow" data-method="delete" href="/lincoln_riders/posts/'+e.detail[0][0].post_id+'/post_favs"><i class="fa fa-heart" aria-hidden="true" style="color:red;"></i></a>'
     }
     if (e.detail[0][0].done == "destroy"){
-        var post_fav = document.getElementById('post_fav')
+        var post_fav = document.getElementById('post_fav_'+e.detail[0][0].post_id)
         post_fav.innerHTML = '<a class="post_fav_create" data-remote="true" rel="nofollow" data-method="post" href="/lincoln_riders/posts/'+e.detail[0][0].post_id+'/post_favs"><i class="fa fa-heart" aria-hidden="true"></i></a>'
     }
   });
 
     $(document).on('ajax:success', '#mapped_images_fav a', function(e) {
-    console.log(e.detail[0][0]);
-    if (e.detail[0][0].done == "save"){
-        var mapped_images_fav = document.getElementById('mapped_images_fav')
-        mapped_images_fav.innerHTML = '<a class="mapped_images_fav_deatroy" data-remote="true" rel="nofollow" data-method="delete" href="/lincoln_riders/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true" style="color:red;"></i></a>'
-    }
-    if (e.detail[0][0].done == "destroy"){
-        var mapped_images_fav = document.getElementById('mapped_images_fav')
-        mapped_images_fav.innerHTML = '<a class="mapped_images_fav_create" data-remote="true" rel="nofollow" data-method="post" href="/lincoln_riders/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true"></i></a>'
-    }
+      console.log(e.detail[0][0]);
+      if (e.detail[0][0].done == "save"){
+          var mapped_images_fav = document.getElementById('mapped_images_fav')
+          mapped_images_fav.innerHTML = '<a class="mapped_images_fav_deatroy" data-remote="true" rel="nofollow" data-method="delete" href="/lincoln_riders/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true" style="color:red;"></i></a>'
+      }
+      if (e.detail[0][0].done == "destroy"){
+          var mapped_images_fav = document.getElementById('mapped_images_fav')
+          mapped_images_fav.innerHTML = '<a class="mapped_images_fav_create" data-remote="true" rel="nofollow" data-method="post" href="/lincoln_riders/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true"></i></a>'
+      }
   });
 
 });
@@ -328,38 +327,31 @@ var SetMap = (function() {
 $(function() {
 
   function MenuBarOpen(){
-    $(".menu_bar").css({
-        "display": "block",
-    });
+    $(".menu_bar").slideDown();
     $("#menu_icon_open").css({
         "display": "none",
+        "width" : "0%"
     });
     $("#menu_icon_close").css({
         "display": "block",
     });
   };
   function MenuBarClose(){
-    $(".menu_bar").css({
-        "display": "none",
-    });
+    $(".menu_bar").slideUp();
     $("#menu_icon_open").css({
         "display": "block",
+        "width" : "100%"
     });
     $("#menu_icon_close").css({
         "display": "none",
     });
   };
 
-  $(document).on('mouseover', '#menu_icon_open', function() {
+  $(document).on('click', '#menu_icon_open', function() {
     MenuBarOpen();
   });
-  $(document).on('mouseover', '.menu_bar', function() {
-    MenuBarOpen();
-  });
-
-  $(document).on('mouseout', '.menu_bar', function() {
+  $(document).on('click', '#menu_icon_close', function() {
     MenuBarClose();
   });
-
 });
 

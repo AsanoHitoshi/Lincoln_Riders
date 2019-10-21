@@ -1,22 +1,28 @@
 <div class="background clearfix">
 	<div class="content clearfix">
-	<div >
-		<%if current_user.profile_image == nil %>
-			<%= image_tag '/images/noimage.jpg' ,class: "user_profile_icon"%>
-		<%else%>
-			<%= attachment_image_tag current_user, :profile_image ,class: "user_profile_icon"%>
-		<%end%>
-	</div>
-	<div>
-		<h3>New Post</h3>
-		<%= form_for(@new_post,url: lincoln_riders_post_reply_relationships_path) do |f| %>
-			<%= f.label :内容%><br>
-			<%= f.text_area :text ,id: "responsive_post_text", style: 'width:100%;'%><br>
-			<%= f.label :image ,id: "responsive_post_image"%><br>
-			<%= f.attachment_field :image %><br>
+		<div >
+			<%if current_user.profile_image == nil %>
+				<%= image_tag '/images/noimage.jpg' ,class: "user_profile_icon"%>
+			<%else%>
+				<%= attachment_image_tag current_user, :profile_image ,class: "user_profile_icon"%>
+			<%end%>
+		</div>
+		<div>
+			<h3>New Post</h3>
+			<%= form_for(@new_post,url: lincoln_riders_post_reply_relationships_path) do |f| %>
+				<%= f.label :内容%><br>
+				<%= f.text_area :text ,id: "responsive_post_text", style: 'width:100%;'%><br>
+				<%= f.label :image ,id: "responsive_post_image"%><br>
+				<%= f.attachment_field :image %><br>
 
-			<%= f.submit "Create Post" ,class:"btn btn-default" ,name:"responsive_commit"%>
-		<%end%>
+				<%= f.submit "Create Post" ,class:"btn btn-default" ,name:"responsive_commit"%>
+			<%end%>
+		</div>
 	</div>
 </div>
-</div>
+
+<style>
+  .content{
+    width: 96%;
+  }
+</style>

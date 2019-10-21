@@ -60,13 +60,14 @@ nav ul{
 }
 .nav_item{
 	width: 100%;
-	line-height: 27px;/* =header height */
+	line-height: 50px;/* =header height */
 	padding: 0 15px 0 15px;
 	color: rgb(157,157,157);
 	border-bottom-style: solid;
 	border-bottom-color: darkslategray;
 	list-style-type: none;
 	text-align: center;
+	height: 50px;
 }
 
 .main{
@@ -77,17 +78,13 @@ nav ul{
 	top: 73px;
 	left: 0px;
 }
-body{
-	background-image: url(/images/background.jpg);
-	background-repeat: no-repeat;
-	background-position: right bottom;
-	background-size: 100%;
-}
-.background_color{
-	background-color: #496887;
-	background: linear-gradient(to bottom, #496887 50% , transparent);
-}
 .background{
+	background-image: url(/images/background.jpg);
+	background-size: 100%;
+	min-height: 100vh;
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
 }
 .text_title{
 	font-weight: bold;
@@ -206,8 +203,13 @@ footer{
 	top: 0;
 	right: 0;
 }
+#menu_icon_open{
+	display: block;
+	width: 100%;
+}
 #menu_icon_close{
 	display: none;
+	width: 0%;
 }
 
 .mypage_create_field{

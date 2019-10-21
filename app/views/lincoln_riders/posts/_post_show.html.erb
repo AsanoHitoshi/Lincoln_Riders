@@ -24,7 +24,7 @@
 	</div>
 	<div class="links clearfix">
 		<h4>
-			<div id="post_fav">
+			<div class="post_fav" id="post_fav_<%=post.id%>">
 				<%if post.post_fav_by?(current_user)%>
 					<%= link_to lincoln_riders_post_post_favs_path(post), class: "post_fav_deatroy",id: "post_fav_deatroy", method: :delete, remote: true do %>
 						<i class="fa fa-heart" aria-hidden="true" style="color:red;"></i>
@@ -33,6 +33,11 @@
 					<%= link_to lincoln_riders_post_post_favs_path(post), class: "post_fav_create",id: "post_fav_create", method: :post, remote: true do %>
 						<i class="fa fa-heart" aria-hidden="true"></i>
 					<%end%>
+				<%end%>
+			</div>
+			<div class="reply">
+				<%= link_to new_lincoln_riders_post_reply_relationships_path(post),id: "post_elationship" do%>
+					<i class="fas fa-comment-dots"></i>
 				<%end%>
 			</div>
 			<%if post.user_id == current_user.id%>
