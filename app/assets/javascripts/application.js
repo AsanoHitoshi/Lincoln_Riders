@@ -83,20 +83,16 @@ var SetMap = (function() {
     function InitMap(map_canvas,mapped_image_position_lat,mapped_image_position_lng){ //map_canvas = id name of div showing map
       return new Promise((resolve, reject) => {
         GetPositionFrom(mapped_image_position_lat, mapped_image_position_lng).then(function(lat_lng){
-        console.log(lat_lng)
-        var mapOptions = {
-          center: lat_lng,
-          zoom: 16,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById(map_canvas), mapOptions);
+          var mapOptions = {
+            center: lat_lng,
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          var map = new google.maps.Map(document.getElementById(map_canvas), mapOptions);
 
-        resolve(map)
+          resolve(map)
+        });
       });
-    });
-
-
-
     };
 
     // ビューから緯度、経度を取得する
@@ -173,13 +169,8 @@ var SetMap = (function() {
     function MoveMarker(map){
         var lat_lng = GetPositionFrom("mapped_image_position_lat","mapped_image_position_lng").then(function(lat_lng){
 
-          markers.forEach(function(marker){
-            if (marker == null){  //markerがなければ無視する
+          resetMarkers(markers)
 
-            }else{  //markerがあれば残っているmarkerを隠す
-              marker.setMap(null);
-            }
-          });
           var marker = new google.maps.Marker({
             map: map,
             position: lat_lng
@@ -196,6 +187,16 @@ var SetMap = (function() {
         });
     };
 
+    // 既存のマーカーをリセットする
+    function resetMarkers(markers){
+      markers.forEach(function(marker){
+        if (marker == null){  //markerがなければ無視する
+
+        }else{  //markerがあれば残っているmarkerを隠す
+          marker.setMap(null);
+        }
+      });
+    };
 
     // マーカーを設置する
     function SetMarkers(map){
@@ -204,6 +205,7 @@ var SetMap = (function() {
       var mapped_image_positions_id = Array();
       var infoWindows = Array();
       var j = 0;
+      resetMarkers(markers)
       for (var i = 0; i < mapped_image_position_size; i++) {
         GetPositionFrom("mapped_image_position_lat_"+i,"mapped_image_position_lng_"+i).then(function(mapped_image_position){
           var mapped_image_position_id = GetIdFrom("mapped_image_id_"+j);
@@ -242,7 +244,6 @@ var SetMap = (function() {
     // 画像をクリックした時の処理
     function ImageClickEvent(i,lat_lng, map) {
       $('.mapped_image_index_'+i).on('click', function() {
-        console.log('click');
         // 座標の中心をずらす
         map.panTo(lat_lng);
         $(".mapped_image_field").css('background-color','white');
@@ -275,6 +276,31 @@ var SetMap = (function() {
                   console.log('ajax失敗');
                 },
               })
+      });
+    }
+    function dispLatLng(map){
+      var latlng = map.getCenter();
+      google.maps.event.addListener(map, 'bounds_changed', function() {
+        var latlngBounds = map.getBounds();
+        var swLatlng = latlngBounds.getSouthWest();
+        var neLatlng = latlngBounds.getNorthEast();
+        var map_range = {sw:{lat:swLatlng.lat,lng:swLatlng.lng},ne:{lat:neLatlng.lat,lng:neLatlng.lng}}
+
+        $.ajax({
+          url: "/lincoln_riders/mapped_images/get_near_markers",
+          type: "GET",
+          data: { view_map_range : map_range
+                  },
+          dataType: "json",
+          success: function(data) {
+            console.log("ajax成功");
+            $("#mapped_image_index").html(data.html)
+            SetMarkers(map)
+          },
+          error: function(){
+            console.log('ajax失敗');
+          },
+        });
       });
     }
 
@@ -316,6 +342,25 @@ var SetMap = (function() {
             var lat_lng = GetAddress(map).then(function(lat_lng){
               map.panTo(lat_lng);
             });
+          });
+          map.addListener('click', function(e) {
+            map.panTo(e.latLng);
+          });
+        });
+      },
+
+      ForSearch: function(){
+        var button = document.getElementById("map_button");
+        var map = InitMap("map-canvas","mapped_image_position_lat","mapped_image_position_lng").then(function(map){
+          dispLatLng(map);
+          // ボタンが押された時の処理
+          $(document).on('click', '#map_button', function() {
+            var lat_lng = GetAddress(map).then(function(lat_lng){
+              map.panTo(lat_lng);
+            });
+          });
+          map.addListener('click', function(e) {
+            map.panTo(e.latLng);
           });
         });
       }

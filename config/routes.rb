@@ -33,7 +33,9 @@ Rails.application.routes.draw do
 		end
 
 		get 'mapped_images' => 'mapped_images#index', as: 'mapped_images'
+		get 'mapped_images/search' => 'mapped_images#search', as: 'mapped_images_search'
 		get 'mapped_images/get_window_content' => 'mapped_images#get_window_content'
+		get 'mapped_images/get_near_markers' => 'mapped_images#get_near_markers'
 		resources :mapped_images,only: [:create,:show,:edit,:update,:destroy,:new] do
 			resource :mapped_images_favs, only: [:create, :destroy]
 		end
