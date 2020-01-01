@@ -7,24 +7,24 @@
 	height: 400px;
 }
 .description{
-	width: 512px;
+	width: 50%;
 	margin: 50px 10px 0 auto;
 }
 .right{
 	float: right;
-	width: 50%;
+	width: 100%;
     font-size: 26px;
     text-align: right;
 }
 .center{
 	margin: 0 auto;
-	width: 50%;
+	width: 100%;
     font-size: 26px;
     text-align: center;
 }
 .left{
 	float: left;
-	width: 50%;
+	width: 100%;
     font-size: 26px;
 }
 
@@ -43,7 +43,13 @@
 	margin: 2%;
 	min-height: 350px;
 }
-
+.slick-next{
+	height:  0px !important;
+	right: 0px !important;
+}
+.slick-next:before{
+	content: "" !important;
+}
 .link_title{
 	width: 140px;
 }

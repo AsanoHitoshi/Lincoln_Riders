@@ -21,13 +21,7 @@
 *{
 	margin: 0;
 }
-.map{
-	float: left;
-	width: 64%;
-}
-.mapped_images_index{
-	float: right;
-}
+
 .clearfix::after {
 	content: "";
 	display: block;
@@ -36,8 +30,12 @@
 
 header{
 	background-color: black;
-	height: 80px;/* = header_title heght */
+	height: 73px;/* = header_title heght */
 	width: 100%;
+	position: fixed;
+	top:0px;
+	left: 0px;
+	z-index: 30;
 }
 .header_title{
 	font-family:fantasy;
@@ -52,38 +50,41 @@ nav{
 .nav_left{
 	float: left;
 }
+nav ul{
+	margin-bottom:0px;
+}
 .nav_right{
 	float: right;
 	height: 100%;
 	padding-right: 10px;
 }
 .nav_item{
-	list-style-type: none;
-	float:right;
-	line-height: 40px;/* =header height */
+	width: 100%;
+	line-height: 50px;/* =header height */
 	padding: 0 15px 0 15px;
 	color: rgb(157,157,157);
+	border-bottom-style: solid;
+	border-bottom-color: darkslategray;
+	list-style-type: none;
+	text-align: center;
+	height: 50px;
 }
-
 
 .main{
 	min-height: 700px;
 	width: 100%;
 	position: relative;
 	opacity: 0.95;
-
-}
-body{
-	background-image: url(/images/background.jpg);
-	background-repeat: no-repeat;
-	background-position: right bottom;
-	background-size: 100%;
-}
-.background_color{
-	background-color: #496887;
-	background: linear-gradient(to bottom, #496887 50% , transparent);
+	top: 73px;
+	left: 0px;
 }
 .background{
+	background-image: url(/images/background.jpg);
+	background-size: 100%;
+	min-height: 100vh;
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
 }
 .text_title{
 	font-weight: bold;
@@ -114,7 +115,7 @@ body{
 	left: 0;
 	opacity: 0.95;
 }
-.users-info .edit{
+.users_info .edit{
 	text-align: right;
 }
 
@@ -125,14 +126,12 @@ body{
 	background-color: orange;
 }
 
-
 .bar_link{
 	height:  50px;
 	width: 50%;
 	float: left;
 	text-align: center;
 }
-
 
 .bar_icon{
 	line-height: 50px;
@@ -160,16 +159,19 @@ footer{
 	height: 79px;
 	width: 100%;
 	opacity: 0.95;
+	position: relative;
+	bottom: -73px;
 }
 .footer_copyright{
 	font-family:fantasy;
 	color: white;
 }
 
-.footer-text-field{
+.footer_text_field{
 	width: 90%;
 	text-align: right;
 	padding-top: 38px;
+	height: 79px;
 }
 
 .pagination{
@@ -184,5 +186,61 @@ footer{
 	margin: 2%;
 	min-height: 700px;
 }
+.menu_bar{
+	width: 100%;
+	background-color: black;
+	z-index: 30;
+	display: none;
+	opacity: 0.9;
+}
+.menu_icon{
+	height: 73px;/* = header_title heght */
+	width: 73px;
+	font-size: 40px;
+	text-align: center;
+	padding: 19px;
+	color:white;
+	top: 0;
+	right: 0;
+}
+#menu_icon_open{
+	display: block;
+	width: 100%;
+}
+#menu_icon_close{
+	display: none;
+	width: 0%;
+}
 
+.mypage_create_field{
+	display: none;
+	border: solid 1px;
+	padding: 10px;
+	border-radius: 5px;
+}
+@media screen and (max-width: 1023px) {
 
+	.post_field{
+		width: 100%;
+	}
+	.map{
+		float: none;
+		width: 100%;
+	}
+	.mapped_images_index{
+		float: none;
+		width: 100%;
+	}
+	.sidebar{
+		display: none;
+	}
+	.content{
+		width: 96%;
+	}
+	.bar{
+		width: 100%;
+	}
+	.mypage_create_field{
+		display: block;
+	}
+}

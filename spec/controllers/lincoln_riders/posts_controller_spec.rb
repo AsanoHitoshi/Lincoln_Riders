@@ -50,7 +50,7 @@ RSpec.feature "posts_controllerに関する", type: :feature do
           end
           scenario '画像込みの投稿した時' do
             find_field('sidebar_text').set("create_text_a")
-            find('input[id="post_image"]').set(File.dirname(__FILE__) + "/../../" +'files/sample.jpeg')
+            find('input[id="sidebar_post_image"]').set(File.dirname(__FILE__) + "/../../" +'files/sample.jpeg')
             find("input[name='sidebar_commit']").click
             expect(page).to have_content Post.last.text
             expect(page).to have_content Post.last.user.name

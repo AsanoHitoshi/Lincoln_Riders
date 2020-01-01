@@ -1,6 +1,18 @@
 <div class="background clearfix">
 
   <%= render 'layouts/sidebar',new_post: @new_post %>
+  <div class="bar">
+    <%= link_to lincoln_riders_mapped_images_path do%>
+      <div class="bar_link">
+        <i class="fas fa-motorcycle bar_icon"></i>
+      </div>
+    <%end%>
+    <%= link_to lincoln_riders_mapped_images_search_path do%>
+      <dvi class="bar_link">
+        <i class="fas fa-search bar_icon"></i>
+      </dvi>
+    <%end%>
+  </div>
   <div class="content clearfix">
     <%if flash[:notice]%>
       <div class="flash">
@@ -17,9 +29,9 @@
         <button type="button" value="検索" id="map_button">検索</button>
       </form>
     </div>
-
-    <%= render 'lincoln_riders/mapped_images/mapped_image_index',mapped_images: @mapped_images %>
-
+    <div id="mapped_image_index">
+      <%= render 'lincoln_riders/mapped_images/mapped_image_index',mapped_images: @mapped_images %>
+    </div>
   </div>
 </div>
 

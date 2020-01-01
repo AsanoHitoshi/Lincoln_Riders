@@ -28,6 +28,8 @@ RSpec.feature "post_favs_controllerに関する", type: :feature do
 			expect {
 				find("a[class='post_fav_deatroy']").click
 			}.to change(@user1.fav_posts, :count).by(-1)
+			sleep 10
+            expect(page).to have_content @my_post.user.name
 		end
 	end
 end

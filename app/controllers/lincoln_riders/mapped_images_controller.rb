@@ -1,11 +1,16 @@
 class LincolnRiders::MappedImagesController < ApplicationController
 	before_action :authenticate_user!
 
-PER=9
+	PER=9
 
 	def index
 		@mapped_images = MappedImage.all.order(id: "DESC").page(params[:page]).per(PER)
 		@new_post = Post.new
+	end
+
+	def search
+		@new_post = Post.new
+		@mapped_images = []
 	end
 
 	def new
@@ -66,11 +71,20 @@ PER=9
 		end
 	end
 
+
+# ajax function
 	def get_window_content
 		@showing_mapped_image = MappedImage.find_by(id: params[:showing_mapped_image_id])
 		@showing_mapped_image.image_id = Refile.attachment_url(@showing_mapped_image, :image)
 		render :json => @showing_mapped_image
-		# render "get_window_content.js.erb"
+	end
+
+	def get_near_markers
+		all_near_mapped_images = MappedImage.where(position_lat: params[:view_map_range][:sw][:lat].to_f..params[:view_map_range][:ne][:lat].to_f,position_lng: params[:view_map_range][:sw][:lng].to_f..params[:view_map_range][:ne][:lng].to_f)
+		fav_rank_mapped_image_ids = MappedImagesFav.where(mapped_image_id: all_near_mapped_images.pluck(:id)).group(:mapped_image_id).order('count(mapped_image_id) desc').limit(5).pluck(:mapped_image_id)
+		@near_mapped_images = MappedImage.where(id: fav_rank_mapped_image_ids).order(id: "DESC").page(params[:page]).per(PER)
+		content = render_to_string(:partial => 'lincoln_riders/mapped_images/mapped_image_index', locals: {mapped_images: @near_mapped_images} )
+		render json: {html: content}, status: :ok
 	end
 
 	private

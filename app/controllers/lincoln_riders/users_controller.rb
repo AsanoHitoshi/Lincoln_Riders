@@ -1,7 +1,9 @@
 class LincolnRiders::UsersController < ApplicationController
 	before_action :authenticate_user!
-PER = 10
-LATEST_PER = 5
+
+	PER = 10
+	LATEST_PER = 5
+
 	def mypage
 		@user = User.find_by(id: current_user.id)
 		following_users = @user.following_users

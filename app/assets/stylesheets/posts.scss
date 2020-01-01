@@ -56,13 +56,25 @@
 }
 
 
-.links #post_fav{
+.links .post_fav{
 	width: 20%;
 	float:left;
 	margin-left: 2%;
 	text-align: center;
 }
+.post_fav{
+	width: 20%;
+	float:right;
+	margin-left: 2%;
+	text-align: center;
+}
 
+.links .reply{
+	width: 20%;
+	float:left;
+	margin-left: 2%;
+	text-align: center;
+}
 .links .edit{
 	width: 20%;
 	float:right;
@@ -74,4 +86,8 @@
 	float:right;
 	margin-right: 2%;
 	text-align: center;
+}
+.reply_post{
+	width: 90%;
+	margin: 0 auto;
 }

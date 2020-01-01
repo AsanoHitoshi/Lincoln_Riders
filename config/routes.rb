@@ -27,12 +27,16 @@ Rails.application.routes.draw do
 			get :followed_users_index, on: :member
 		end
 
-		resources :posts, only: [:index,:create,:show,:edit,:destroy,:update] do
+		get 'posts/search' => 'posts#search', as: 'posts_search'
+		resources :posts, only: [:new,:index,:create,:show,:edit,:destroy,:update] do
 			resource :post_favs, only: [:create, :destroy]
+			resource :reply_relationships, only: [:create, :new]
 		end
 
 		get 'mapped_images' => 'mapped_images#index', as: 'mapped_images'
+		get 'mapped_images/search' => 'mapped_images#search', as: 'mapped_images_search'
 		get 'mapped_images/get_window_content' => 'mapped_images#get_window_content'
+		get 'mapped_images/get_near_markers' => 'mapped_images#get_near_markers'
 		resources :mapped_images,only: [:create,:show,:edit,:update,:destroy,:new] do
 			resource :mapped_images_favs, only: [:create, :destroy]
 		end

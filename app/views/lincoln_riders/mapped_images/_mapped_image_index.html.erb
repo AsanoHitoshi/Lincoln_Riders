@@ -1,8 +1,12 @@
-<div class="mapped_images_index">
-	<%= render 'lincoln_riders/mapped_images/mapped_images_each',mapped_images: mapped_images %>
-	<div class="paginate">
-		<%= paginate mapped_images %>
+<%if mapped_images.length != 0 %>
+	<div class="mapped_images_index">
+		<%= render 'lincoln_riders/mapped_images/mapped_images_each',mapped_images: mapped_images %>
+		<div class="paginate">
+			<%= paginate mapped_images %>
+		</div>
+
+
 	</div>
-
-
-</div>
+<%else%>
+	<h3>投稿がありません</h3>
+<%end%>

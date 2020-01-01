@@ -8,6 +8,10 @@
 			</div>
 		<%end%>
 		<h3 class="page_title">Posts Index</h3>
+		<form onsubmit="return false;">
+			<input type="text" id="search_word">
+			<button type="button" value="検索" id="post_search_btn">検索</button>
+		</form>
 		<%= render 'lincoln_riders/posts/posts_index',posts: @posts %>
 		</div>
 	</div>

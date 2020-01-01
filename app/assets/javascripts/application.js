@@ -28,33 +28,32 @@ $(function() {
 
 
 $(function() {
-  $(document).on('click', '#post_fav a', function() {
+  $(document).on('click', '.post_fav a', function() {
     if ($('a').val() == '') {
       return false;
     }
   });
-  $(document).on('ajax:success', '#post_fav a', function(e) {
-    console.log(e.detail[0][0]);
+  $(document).on('ajax:success', '.post_fav a', function(e) {
     if (e.detail[0][0].done == "save"){
-        var post_fav = document.getElementById('post_fav')
+        var post_fav = document.getElementById('post_fav_'+e.detail[0][0].post_id)
         post_fav.innerHTML = '<a class="post_fav_deatroy" data-remote="true" rel="nofollow" data-method="delete" href="/lincoln_riders/posts/'+e.detail[0][0].post_id+'/post_favs"><i class="fa fa-heart" aria-hidden="true" style="color:red;"></i></a>'
     }
     if (e.detail[0][0].done == "destroy"){
-        var post_fav = document.getElementById('post_fav')
+        var post_fav = document.getElementById('post_fav_'+e.detail[0][0].post_id)
         post_fav.innerHTML = '<a class="post_fav_create" data-remote="true" rel="nofollow" data-method="post" href="/lincoln_riders/posts/'+e.detail[0][0].post_id+'/post_favs"><i class="fa fa-heart" aria-hidden="true"></i></a>'
     }
   });
 
     $(document).on('ajax:success', '#mapped_images_fav a', function(e) {
-    console.log(e.detail[0][0]);
-    if (e.detail[0][0].done == "save"){
-        var mapped_images_fav = document.getElementById('mapped_images_fav')
-        mapped_images_fav.innerHTML = '<a class="mapped_images_fav_deatroy" data-remote="true" rel="nofollow" data-method="delete" href="/lincoln_riders/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true" style="color:red;"></i></a>'
-    }
-    if (e.detail[0][0].done == "destroy"){
-        var mapped_images_fav = document.getElementById('mapped_images_fav')
-        mapped_images_fav.innerHTML = '<a class="mapped_images_fav_create" data-remote="true" rel="nofollow" data-method="post" href="/lincoln_riders/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true"></i></a>'
-    }
+      console.log(e.detail[0][0]);
+      if (e.detail[0][0].done == "save"){
+          var mapped_images_fav = document.getElementById('mapped_images_fav')
+          mapped_images_fav.innerHTML = '<a class="mapped_images_fav_deatroy" data-remote="true" rel="nofollow" data-method="delete" href="/lincoln_riders/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true" style="color:red;"></i></a>'
+      }
+      if (e.detail[0][0].done == "destroy"){
+          var mapped_images_fav = document.getElementById('mapped_images_fav')
+          mapped_images_fav.innerHTML = '<a class="mapped_images_fav_create" data-remote="true" rel="nofollow" data-method="post" href="/lincoln_riders/mapped_images/'+e.detail[0][0].mapped_image_id+'/mapped_images_favs"><i class="fa fa-heart" aria-hidden="true"></i></a>'
+      }
   });
 
 });
@@ -84,20 +83,16 @@ var SetMap = (function() {
     function InitMap(map_canvas,mapped_image_position_lat,mapped_image_position_lng){ //map_canvas = id name of div showing map
       return new Promise((resolve, reject) => {
         GetPositionFrom(mapped_image_position_lat, mapped_image_position_lng).then(function(lat_lng){
-        console.log(lat_lng)
-        var mapOptions = {
-          center: lat_lng,
-          zoom: 16,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById(map_canvas), mapOptions);
+          var mapOptions = {
+            center: lat_lng,
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+          var map = new google.maps.Map(document.getElementById(map_canvas), mapOptions);
 
-        resolve(map)
+          resolve(map)
+        });
       });
-    });
-
-
-
     };
 
     // ビューから緯度、経度を取得する
@@ -174,13 +169,8 @@ var SetMap = (function() {
     function MoveMarker(map){
         var lat_lng = GetPositionFrom("mapped_image_position_lat","mapped_image_position_lng").then(function(lat_lng){
 
-          markers.forEach(function(marker){
-            if (marker == null){  //markerがなければ無視する
+          resetMarkers(markers)
 
-            }else{  //markerがあれば残っているmarkerを隠す
-              marker.setMap(null);
-            }
-          });
           var marker = new google.maps.Marker({
             map: map,
             position: lat_lng
@@ -197,6 +187,16 @@ var SetMap = (function() {
         });
     };
 
+    // 既存のマーカーをリセットする
+    function resetMarkers(markers){
+      markers.forEach(function(marker){
+        if (marker == null){  //markerがなければ無視する
+
+        }else{  //markerがあれば残っているmarkerを隠す
+          marker.setMap(null);
+        }
+      });
+    };
 
     // マーカーを設置する
     function SetMarkers(map){
@@ -205,8 +205,8 @@ var SetMap = (function() {
       var mapped_image_positions_id = Array();
       var infoWindows = Array();
       var j = 0;
+      resetMarkers(markers)
       for (var i = 0; i < mapped_image_position_size; i++) {
-        console.log(i)
         GetPositionFrom("mapped_image_position_lat_"+i,"mapped_image_position_lng_"+i).then(function(mapped_image_position){
           var mapped_image_position_id = GetIdFrom("mapped_image_id_"+j);
           mapped_image_positions_id.push(mapped_image_position_id);
@@ -244,7 +244,6 @@ var SetMap = (function() {
     // 画像をクリックした時の処理
     function ImageClickEvent(i,lat_lng, map) {
       $('.mapped_image_index_'+i).on('click', function() {
-        console.log('click');
         // 座標の中心をずらす
         map.panTo(lat_lng);
         $(".mapped_image_field").css('background-color','white');
@@ -277,6 +276,31 @@ var SetMap = (function() {
                   console.log('ajax失敗');
                 },
               })
+      });
+    }
+    function dispLatLng(map){
+      var latlng = map.getCenter();
+      google.maps.event.addListener(map, 'bounds_changed', function() {
+        var latlngBounds = map.getBounds();
+        var swLatlng = latlngBounds.getSouthWest();
+        var neLatlng = latlngBounds.getNorthEast();
+        var map_range = {sw:{lat:swLatlng.lat,lng:swLatlng.lng},ne:{lat:neLatlng.lat,lng:neLatlng.lng}}
+
+        $.ajax({
+          url: "/lincoln_riders/mapped_images/get_near_markers",
+          type: "GET",
+          data: { view_map_range : map_range
+                  },
+          dataType: "json",
+          success: function(data) {
+            console.log("ajax成功");
+            $("#mapped_image_index").html(data.html)
+            SetMarkers(map)
+          },
+          error: function(){
+            console.log('ajax失敗');
+          },
+        });
       });
     }
 
@@ -319,6 +343,25 @@ var SetMap = (function() {
               map.panTo(lat_lng);
             });
           });
+          map.addListener('click', function(e) {
+            map.panTo(e.latLng);
+          });
+        });
+      },
+
+      ForSearch: function(){
+        var button = document.getElementById("map_button");
+        var map = InitMap("map-canvas","mapped_image_position_lat","mapped_image_position_lng").then(function(map){
+          dispLatLng(map);
+          // ボタンが押された時の処理
+          $(document).on('click', '#map_button', function() {
+            var lat_lng = GetAddress(map).then(function(lat_lng){
+              map.panTo(lat_lng);
+            });
+          });
+          map.addListener('click', function(e) {
+            map.panTo(e.latLng);
+          });
         });
       }
 
@@ -326,5 +369,53 @@ var SetMap = (function() {
     };
   })();
 
+$(function() {
 
+  function MenuBarOpen(){
+    $(".menu_bar").slideDown();
+    $("#menu_icon_open").css({
+        "display": "none",
+        "width" : "0%"
+    });
+    $("#menu_icon_close").css({
+        "display": "block",
+    });
+  };
+  function MenuBarClose(){
+    $(".menu_bar").slideUp();
+    $("#menu_icon_open").css({
+        "display": "block",
+        "width" : "100%"
+    });
+    $("#menu_icon_close").css({
+        "display": "none",
+    });
+  };
+
+  $(document).on('click', '#menu_icon_open', function() {
+    MenuBarOpen();
+  });
+  $(document).on('click', '#menu_icon_close', function() {
+    MenuBarClose();
+  });
+});
+
+$(function() {
+  $(document).on('click', '#post_search_btn', function() {
+    var search_word = document.getElementById("search_word").value;
+    $.ajax({
+      url: "/lincoln_riders/posts/search",
+      type: "GET",
+      data: { word : search_word },
+      dataType: "json",
+      success: function(data) {
+        console.log("ajax成功");
+        $(".posts").html(data.html)
+      },
+      error: function(){
+        console.log('ajax失敗');
+      },
+    });
+  });
+});
 

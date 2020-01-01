@@ -1,14 +1,14 @@
 <div class="sidebar">
-	<div class="users-info">
+	<div class="users_info">
 		<h3>User Info</h3>
 		<div class="user">
 			<div>
 				<%if current_user.profile_image == nil %>
-						<%= image_tag '/images/noimage.jpg' ,class: "user_profile_image"%>
+					<%= image_tag '/images/noimage.jpg' ,class: "user_profile_image"%>
 				<%else%>
 					<%= attachment_image_tag current_user, :profile_image ,class: "user_profile_image"%>
 				<%end%>
-		</div>
+			</div>
 			<span class="text_title">Name</span><br><span><%= current_user.name%></span><br>
 			<span class="text_title">Introduction</span><br><span><%= current_user.introduction%></span><br>
 		</div>
@@ -29,7 +29,7 @@
 			<%= f.label :内容%><br>
 			<%= f.text_area :text ,id: "sidebar_text", style: 'width:100%;'%><br>
 			<%= f.label :image%><br>
-			<%= f.attachment_field :image %><br>
+			<%= f.attachment_field :image ,id: "sidebar_post_image" %><br>
 
 			<%= f.submit "Create Post" ,class:"btn btn-default" ,name:"sidebar_commit"%>
 		<%end%>
