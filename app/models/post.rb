@@ -19,4 +19,8 @@ class Post < ApplicationRecord
 	def post_fav_by?(user)
 		post_favs.where(user_id: user.id).exists?
 	end
+
+	def self.search(word)
+		Post.where("text LIKE?","%#{word}%")
+	end
 end

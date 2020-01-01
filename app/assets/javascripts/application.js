@@ -400,3 +400,22 @@ $(function() {
   });
 });
 
+$(function() {
+  $(document).on('click', '#post_search_btn', function() {
+    var search_word = document.getElementById("search_word").value;
+    $.ajax({
+      url: "/lincoln_riders/posts/search",
+      type: "GET",
+      data: { word : search_word },
+      dataType: "json",
+      success: function(data) {
+        console.log("ajax成功");
+        $(".posts").html(data.html)
+      },
+      error: function(){
+        console.log('ajax失敗');
+      },
+    });
+  });
+});
+

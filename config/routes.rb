@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 			get :followed_users_index, on: :member
 		end
 
+		get 'posts/search' => 'posts#search', as: 'posts_search'
 		resources :posts, only: [:new,:index,:create,:show,:edit,:destroy,:update] do
 			resource :post_favs, only: [:create, :destroy]
 			resource :reply_relationships, only: [:create, :new]
